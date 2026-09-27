@@ -51,19 +51,46 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onOpen
       </div>
 
       <div className="pt-6 border-t border-[#747878]/15 dark:border-white/10 flex items-center justify-between">
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onOpenDetails(project);
-          }}
-          className="font-['Inter'] text-[13px] font-medium text-[#1b1c1a] dark:text-white group-hover:text-[#22C55E] dark:group-hover:text-[#22C55E] flex items-center gap-1.5 transition-colors duration-200 py-1 cursor-pointer"
-        >
-          <span>{project.actionText}</span>
-          <span className="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200">
-            {project.actionType === 'repo' ? 'code' : 'open_in_new'}
-          </span>
-        </button>
+        <div className="flex items-center gap-3">
+          {project.demoUrl && project.demoUrl !== '#' ? (
+            <a
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="font-['Inter'] text-[13px] font-medium text-[#1b1c1a] dark:text-white hover:text-[#22C55E] dark:hover:text-[#22C55E] flex items-center gap-1.5 transition-colors duration-200 py-1"
+            >
+              <span>{project.actionText}</span>
+              <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+            </a>
+          ) : (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenDetails(project);
+              }}
+              className="font-['Inter'] text-[13px] font-medium text-[#1b1c1a] dark:text-white group-hover:text-[#22C55E] dark:group-hover:text-[#22C55E] flex items-center gap-1.5 transition-colors duration-200 py-1 cursor-pointer"
+            >
+              <span>{project.actionText}</span>
+              <span className="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200">
+                {project.actionType === 'repo' ? 'code' : 'open_in_new'}
+              </span>
+            </button>
+          )}
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpenDetails(project);
+            }}
+            className="font-['Inter'] text-[12px] text-[#747878] dark:text-[#9ca3af] hover:text-[#1b1c1a] dark:hover:text-white underline underline-offset-2 transition-colors cursor-pointer"
+          >
+            Case Study
+          </button>
+        </div>
+
         <span className="font-['JetBrains_Mono'] text-xs text-[#747878] dark:text-[#9ca3af]">
           {project.year}
         </span>

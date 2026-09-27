@@ -174,17 +174,21 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   </span>
                 </div>
 
-                {project.id === 'aura-protocol' && (
+                {project.id === 'grim-memecoin' && (
                   <div className="space-y-4">
                     <div className="bg-white/5 p-4 rounded border border-white/10">
-                      <div className="text-xs text-white/60 mb-1">Contract Address (Simulated)</div>
+                      <div className="text-xs text-white/60 mb-1">Contract Address</div>
                       <div className="flex items-center justify-between gap-2 bg-black/40 p-2 rounded">
                         <span className="text-xs text-[#22C55E] font-mono">
-                          0x71C...392F8e5
+                          0xGRIM...42069
                         </span>
                         <button
                           type="button"
-                          onClick={handleCopyContract}
+                          onClick={() => {
+                            navigator.clipboard?.writeText?.('0xGRIM...42069');
+                            setCopiedContract(true);
+                            setTimeout(() => setCopiedContract(false), 2000);
+                          }}
                           className="px-2 py-1 bg-white/10 hover:bg-[#22C55E] hover:text-black text-[10px] rounded transition-colors cursor-pointer"
                         >
                           {copiedContract ? 'COPIED!' : 'COPY'}
@@ -192,77 +196,106 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-3 gap-2 text-center">
                       <div className="p-3 bg-white/5 rounded">
-                        <div className="text-[10px] text-white/50">CIRCULATING SUPPLY</div>
-                        <div className="text-sm font-bold text-white">1,000,000,000 $AURA</div>
+                        <div className="text-[10px] text-white/50">TOTAL SUPPLY</div>
+                        <div className="text-xs font-bold text-white mt-1">1,000,000,000</div>
                       </div>
                       <div className="p-3 bg-white/5 rounded">
-                        <div className="text-[10px] text-white/50">TAX (BUY/SELL)</div>
-                        <div className="text-sm font-bold text-[#22C55E]">0% / 0%</div>
+                        <div className="text-[10px] text-white/50">COMMUNITY LP</div>
+                        <div className="text-xs font-bold text-[#22C55E] mt-1">100% Fair</div>
                       </div>
+                      <div className="p-3 bg-white/5 rounded">
+                        <div className="text-[10px] text-white/50">MEME LAB</div>
+                        <div className="text-xs font-bold text-white mt-1">Active Terminal</div>
+                      </div>
+                    </div>
+
+                    <div className="p-3 bg-white/5 rounded text-xs text-white/80 flex items-center justify-between">
+                      <span>⚡ Live Web3 Terminal & Portal</span>
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#22C55E] underline flex items-center gap-1 font-bold"
+                      >
+                        <span>Open Live Terminal</span>
+                        <span className="material-symbols-outlined text-[14px]">open_in_new</span>
+                      </a>
                     </div>
                   </div>
                 )}
 
-                {project.id === 'nexus-layer' && (
+                {project.id === 'pepeak-memecoin' && (
                   <div className="space-y-4">
                     <div className="text-xs text-white/70">
-                      Live Rollup Architecture Visualization
+                      Summit-Themed Tokenomics & Viral Mechanics
                     </div>
                     <div className="grid grid-cols-3 gap-2 text-center">
                       <div className="p-3 bg-white/5 rounded border border-white/10">
-                        <div className="text-[10px] text-white/50">EXECUTION</div>
-                        <div className="text-xs text-[#22C55E] font-bold mt-1">EVM Rollup</div>
+                        <div className="text-[10px] text-white/50">THEME</div>
+                        <div className="text-xs text-[#22C55E] font-bold mt-1">The Summit</div>
                       </div>
                       <div className="p-3 bg-white/5 rounded border border-white/10">
-                        <div className="text-[10px] text-white/50">SETTLEMENT</div>
-                        <div className="text-xs text-[#22C55E] font-bold mt-1">Ethereum L1</div>
+                        <div className="text-[10px] text-white/50">BUY / SELL TAX</div>
+                        <div className="text-xs text-[#22C55E] font-bold mt-1">0% / 0%</div>
                       </div>
                       <div className="p-3 bg-white/5 rounded border border-white/10">
-                        <div className="text-[10px] text-white/50">DATA AVAILABILITY</div>
-                        <div className="text-xs text-[#22C55E] font-bold mt-1">EigenDA / Celestia</div>
+                        <div className="text-[10px] text-white/50">MOBILE UX</div>
+                        <div className="text-xs text-[#22C55E] font-bold mt-1">100% Responsive</div>
                       </div>
                     </div>
-                    <div className="p-3 bg-white/5 rounded text-xs text-white/80">
-                      ⚡ Benchmarked TPS: <span className="text-[#22C55E] font-bold">45,200</span> | Proof Time: <span className="text-white font-bold">250ms</span>
+                    <div className="p-3 bg-white/5 rounded text-xs text-white/80 flex items-center justify-between">
+                      <span>🏔️ "The Top is a State of Mind"</span>
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#22C55E] underline flex items-center gap-1 font-bold"
+                      >
+                        <span>Open Live $PEAK Site</span>
+                        <span className="material-symbols-outlined text-[14px]">open_in_new</span>
+                      </a>
                     </div>
                   </div>
                 )}
 
-                {project.id === 'gastracker' && (
+                {project.id === 'ronnie-coin' && (
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between text-xs text-white/70">
-                      <span>Simulate Network Load</span>
-                      <span className="text-[#22C55E] font-bold">{simulatedGasAmount} Gwei</span>
+                    <div className="text-xs text-white/70">
+                      Solana High-Performance Ecosystem Integration
                     </div>
-                    <input
-                      type="range"
-                      min="5"
-                      max="60"
-                      value={simulatedGasAmount}
-                      onChange={(e) => setSimulatedGasAmount(Number(e.target.value))}
-                      className="w-full accent-[#22C55E]"
-                    />
-                    <div className="grid grid-cols-2 gap-3 text-xs">
-                      <div className="p-3 bg-white/5 rounded">
-                        <div className="text-white/50">Est. Uniswap Swap</div>
-                        <div className="text-white font-bold mt-1">
-                          ${((simulatedGasAmount * 150000 * 0.000000001) * 3200).toFixed(2)} USD
-                        </div>
+                    <div className="grid grid-cols-3 gap-2 text-center">
+                      <div className="p-3 bg-white/5 rounded border border-white/10">
+                        <div className="text-[10px] text-white/50">NETWORK</div>
+                        <div className="text-xs text-[#22C55E] font-bold mt-1">Solana SPL</div>
                       </div>
-                      <div className="p-3 bg-white/5 rounded">
-                        <div className="text-white/50">Est. L2 Bridge</div>
-                        <div className="text-white font-bold mt-1">
-                          ${((simulatedGasAmount * 65000 * 0.000000001) * 3200).toFixed(2)} USD
-                        </div>
+                      <div className="p-3 bg-white/5 rounded border border-white/10">
+                        <div className="text-[10px] text-white/50">ROUTING</div>
+                        <div className="text-xs text-[#22C55E] font-bold mt-1">Raydium & DEX</div>
                       </div>
+                      <div className="p-3 bg-white/5 rounded border border-white/10">
+                        <div className="text-[10px] text-white/50">SPEED</div>
+                        <div className="text-xs text-[#22C55E] font-bold mt-1">&lt; 400ms</div>
+                      </div>
+                    </div>
+                    <div className="p-3 bg-white/5 rounded text-xs text-white/80 flex items-center justify-between">
+                      <span>🦏 "Built Like a Rhino on Solana"</span>
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#22C55E] underline flex items-center gap-1 font-bold"
+                      >
+                        <span>Open Live $RONNIE Site</span>
+                        <span className="material-symbols-outlined text-[14px]">open_in_new</span>
+                      </a>
                     </div>
                   </div>
                 )}
               </div>
               <p className="text-xs text-[#747878] dark:text-[#9ca3af] font-['JetBrains_Mono']">
-                * Simulated frontend sandbox demonstrating state reactivity, interactive controls, and crypto web architecture.
+                * Click "Launch Live Site" to test full live animations, swap routing, interactive features, and responsive layouts.
               </p>
             </div>
           )}
@@ -274,10 +307,21 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             Designed & Developed by Senku
           </div>
           <div className="flex items-center gap-3">
+            {project.demoUrl && project.demoUrl !== '#' && (
+              <a
+                href={project.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-[#22C55E] hover:bg-[#16a34a] text-black text-xs font-['JetBrains_Mono'] uppercase rounded transition-colors flex items-center gap-1.5 font-bold cursor-pointer"
+              >
+                <span>Launch Live Site</span>
+                <span className="material-symbols-outlined text-[15px]">open_in_new</span>
+              </a>
+            )}
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2.5 bg-transparent border border-[#747878]/30 dark:border-white/20 hover:border-[#1b1c1a] dark:hover:border-white text-xs font-['JetBrains_Mono'] uppercase text-[#1b1c1a] dark:text-white rounded transition-colors cursor-pointer"
+              className="px-4 py-2 bg-transparent border border-[#747878]/30 dark:border-white/20 hover:border-[#1b1c1a] dark:hover:border-white text-xs font-['JetBrains_Mono'] uppercase text-[#1b1c1a] dark:text-white rounded transition-colors cursor-pointer"
             >
               Close
             </button>
@@ -288,7 +332,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 const contactEl = document.getElementById('contact');
                 contactEl?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="px-5 py-2.5 bg-[#000000] dark:bg-white hover:bg-[#22C55E] dark:hover:bg-[#22C55E] text-white dark:text-black dark:hover:text-black text-xs font-['JetBrains_Mono'] uppercase rounded transition-colors flex items-center gap-1.5 font-medium cursor-pointer"
+              className="px-4 py-2 bg-[#000000] dark:bg-white hover:bg-[#22C55E] dark:hover:bg-[#22C55E] text-white dark:text-black dark:hover:text-black text-xs font-['JetBrains_Mono'] uppercase rounded transition-colors flex items-center gap-1.5 font-medium cursor-pointer"
             >
               <span>Build Similar Project</span>
               <span className="material-symbols-outlined text-[15px]">arrow_outward</span>

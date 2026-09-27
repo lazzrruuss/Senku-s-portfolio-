@@ -1,59 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset='utf-8'>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Download Senku Portfolio ZIP</title>
   <style>
-    body { font-family: system-ui, -apple-system, sans-serif; background: #0e0f12; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; text-align: center; }
-    .card { background: #181920; border: 1px solid rgba(255,255,255,0.15); padding: 40px; border-radius: 12px; max-width: 500px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-    h1 { margin-top: 0; font-size: 24px; letter-spacing: -0.5px; }
-    p { color: #a1a1aa; line-height: 1.6; margin-bottom: 24px; font-size: 14px; }
-    .btn { display: block; width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 8px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; font-size: 14px; transition: all 0.2s; box-sizing: border-box; }
-    .btn-green { background: #22c55e; color: #000; }
-    .btn-green:hover { background: #16a34a; }
-    .btn-dark { background: #27272a; color: #fff; border: 1px solid rgba(255,255,255,0.2); }
-    .btn-dark:hover { background: #3f3f46; }
-    .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 11px; background: rgba(34, 197, 94, 0.15); color: #4ade80; margin-bottom: 16px; font-family: monospace; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0e0f12;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 24px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .card {
+      background: #181920;
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 40px 32px;
+      border-radius: 16px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6);
+    }
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-family: monospace;
+      letter-spacing: 0.05em;
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 0 0 10px 0;
+      font-size: 22px;
+      font-weight: 700;
+    }
+    p {
+      color: #9ca3af;
+      line-height: 1.5;
+      margin-bottom: 28px;
+      font-size: 14px;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s;
+      box-sizing: border-box;
+    }
+    .btn-green {
+      background: #22c55e;
+      color: #000;
+    }
+    .btn-green:hover {
+      background: #16a34a;
+      transform: translateY(-1px);
+    }
+    .btn-dark {
+      background: #262730;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .btn-dark:hover {
+      background: #323440;
+      transform: translateY(-1px);
+    }
+    .note {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 16px;
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
-  <div class='card'>
-    <div class='badge'>SENKU. WEB3 PORTFOLIO</div>
-    <h1>Download Project Files</h1>
-    <p>Click below to instantly download the zip directly from this browser session without hitting third-party rate limits.</p>
-    <button class='btn btn-green' onclick='downloadDist()'>📦 Download Ready-to-Deploy ZIP (dist.zip for Netlify)</button>
-    <button class='btn btn-dark' onclick='downloadSource()'>💻 Download Full Source Code ZIP (All Components)</button>
+  <div class="card">
+    <div class="badge">SENKU • WEB3 PORTFOLIO</div>
+    <h1>Download Updated Project</h1>
+    <p>Your portfolio has been packaged with all recent updates (inquiry direct actions, hidden export buttons, and verified styling).</p>
+    
+    <a href="/dist.zip" download="senku-dist.zip" class="btn btn-green">
+      <span>📦</span>
+      <span>Download Netlify Deploy ZIP (dist.zip)</span>
+    </a>
+
+    <a href="/senku-portfolio-source.zip" download="senku-portfolio-source.zip" class="btn btn-dark">
+      <span>💻</span>
+      <span>Download Full Source Code (.zip)</span>
+    </a>
+
+    <div class="note">
+      Tip: For instant Netlify hosting, drag and drop the unzipped <code>dist</code> folder into <strong>app.netlify.com/drop</strong>.
+    </div>
   </div>
-
-  <script>
-    const distB64 =  + b64_dist + ;
-    const srcB64 =  + b64 + ;
-
-    function triggerDownload(b64Data, filename) {
-      const byteCharacters = atob(b64Data);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: 'application/zip' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-
-    function downloadDist() {
-      triggerDownload(distB64, 'senku-dist.zip');
-    }
-
-    function downloadSource() {
-      triggerDownload(srcB64, 'senku-full-project.zip');
-    }
-  </script>
 </body>
 </html>

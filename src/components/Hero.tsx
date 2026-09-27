@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
+import { useNavigation } from '../context/NavigationContext';
 
 interface HeroProps {
   onSelectProject?: (projectId: string) => void;
@@ -9,19 +10,7 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ onSelectProject }) => {
   const [metricTps, setMetricTps] = useState(45200);
   const [isCopiedToken, setIsCopiedToken] = useState(false);
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const navOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-    }
-  };
+  const { navigateTo } = useNavigation();
 
   const simulateTpsPulse = () => {
     const delta = Math.floor(Math.random() * 800) - 400;
@@ -79,35 +68,29 @@ export const Hero: React.FC<HeroProps> = ({ onSelectProject }) => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-wrap items-center gap-4 pt-2"
           >
-            <motion.a
+            <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              href="#work"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection('work');
-              }}
+              type="button"
+              onClick={() => navigateTo('work')}
               className="px-8 py-4 bg-[#000000] dark:bg-white text-white dark:text-black font-['Inter'] hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black transition-all duration-200 flex items-center gap-2 font-medium tracking-wide group shadow-sm cursor-pointer"
             >
               <span>VIEW WORK</span>
-              <span className="material-symbols-outlined text-[18px] group-hover:translate-y-1 transition-transform duration-200">
-                arrow_downward
+              <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform duration-200">
+                arrow_forward
               </span>
-            </motion.a>
+            </motion.button>
 
-            <motion.a
+            <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection('contact');
-              }}
+              type="button"
+              onClick={() => navigateTo('contact')}
               className="px-8 py-4 bg-transparent text-[#1b1c1a] dark:text-white border border-[#747878]/30 dark:border-white/20 hover:border-[#1b1c1a] dark:hover:border-white hover:bg-black/5 dark:hover:bg-white/10 font-['Inter'] transition-all duration-200 flex items-center gap-2 font-medium tracking-wide cursor-pointer"
             >
               <span>LET’S TALK</span>
               <span className="material-symbols-outlined text-[18px]">arrow_outward</span>
-            </motion.a>
+            </motion.button>
           </motion.div>
 
           {/* Tech tags */}
@@ -144,20 +127,20 @@ export const Hero: React.FC<HeroProps> = ({ onSelectProject }) => {
             SYS.GRID [X:48.2 / Y:12.9]
           </div>
 
-          {/* Layer 1: Base Card (Dashboard Preview - Nexus Layer) */}
+          {/* Layer 1: Base Card (Live Project Preview - RONNIE Solana Memecoin) */}
           <div
             onClick={() => {
               simulateTpsPulse();
-              if (onSelectProject) onSelectProject('nexus-layer');
+              if (onSelectProject) onSelectProject('ronnie-coin');
             }}
             className="absolute w-[88%] sm:w-[380px] bg-[#111111] dark:bg-[#14151a] text-white p-5 rounded-lg shadow-2xl border border-white/10 dark:border-white/20 transform -translate-x-4 sm:-translate-x-6 -translate-y-8 animate-float-slow z-10 cursor-pointer hover:border-[#22C55E]/50 transition-all duration-300 group"
-            title="Click to view Nexus Layer concept"
+            title="Click to view RONNIE ($RONNIE) live project"
           >
             <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#22C55E]"></span>
                 <span className="font-['JetBrains_Mono'] text-xs tracking-wider text-white/90 font-medium">
-                  NEXUS_LAYER.V2
+                  RONNIE ($RONNIE) // SOLANA
                 </span>
               </div>
               <span className="font-['JetBrains_Mono'] text-[10px] text-[#22C55E] bg-[#22C55E]/15 px-2 py-0.5 rounded font-medium">
@@ -172,60 +155,60 @@ export const Hero: React.FC<HeroProps> = ({ onSelectProject }) => {
 
             <div className="grid grid-cols-3 gap-2 pt-2 border-t border-white/10">
               <div className="bg-white/5 p-2 rounded group-hover:bg-white/10 transition-colors">
-                <div className="text-[10px] text-white/50 font-['JetBrains_Mono']">TPS</div>
+                <div className="text-[10px] text-white/50 font-['JetBrains_Mono']">CHAIN</div>
                 <div className="text-xs font-bold text-[#22C55E]">
-                  {metricTps.toLocaleString()}
+                  Solana SPL
                 </div>
               </div>
               <div className="bg-white/5 p-2 rounded group-hover:bg-white/10 transition-colors">
-                <div className="text-[10px] text-white/50 font-['JetBrains_Mono']">GAS</div>
-                <div className="text-xs font-bold text-white">12 Gwei</div>
+                <div className="text-[10px] text-white/50 font-['JetBrains_Mono']">SWAP</div>
+                <div className="text-xs font-bold text-white">Raydium</div>
               </div>
               <div className="bg-white/5 p-2 rounded group-hover:bg-white/10 transition-colors">
-                <div className="text-[10px] text-white/50 font-['JetBrains_Mono']">TVL</div>
-                <div className="text-xs font-bold text-white">$1.2B</div>
+                <div className="text-[10px] text-white/50 font-['JetBrains_Mono']">GAS</div>
+                <div className="text-xs font-bold text-[#22C55E]">&lt; $0.001</div>
               </div>
             </div>
           </div>
 
-          {/* Layer 2: Middle Card (Memecoin / Token Preview - $AURA Protocol) */}
+          {/* Layer 2: Middle Card (Live Memecoin Preview - PEPEAK $PEAK) */}
           <div
             onClick={() => {
               setIsCopiedToken(true);
               setTimeout(() => setIsCopiedToken(false), 2000);
-              if (onSelectProject) onSelectProject('aura-protocol');
+              if (onSelectProject) onSelectProject('pepeak-memecoin');
             }}
             className="absolute w-[84%] sm:w-[320px] bg-[#f4f4f0] dark:bg-[#1a1b22] text-[#1b1c1a] dark:text-white p-5 rounded-lg shadow-xl border border-[#747878]/30 dark:border-white/20 transform translate-x-6 sm:translate-x-10 translate-y-6 animate-float-fast z-20 cursor-pointer hover:border-[#1b1c1a] dark:hover:border-[#22C55E] transition-all duration-300"
-            title="Click to view $AURA Protocol concept"
+            title="Click to view PEPEAK ($PEAK) live project"
           >
             <div className="flex items-center justify-between pb-3 border-b border-[#747878]/15 dark:border-white/10 mb-3">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#000000] dark:bg-white"></span>
                 <span className="font-['JetBrains_Mono'] text-xs tracking-wider font-bold text-[#1b1c1a] dark:text-white">
-                  $AURA PROTOCOL
+                  PEPEAK ($PEAK)
                 </span>
               </div>
-              <span className="material-symbols-outlined text-[16px] text-[#006e2f] dark:text-[#4ade80]">token</span>
+              <span className="material-symbols-outlined text-[16px] text-[#006e2f] dark:text-[#4ade80]">trending_up</span>
             </div>
 
             <div className="flex justify-between items-center bg-[#faf9f5] dark:bg-[#111216] p-3 rounded mb-3 border border-[#747878]/15 dark:border-white/10">
               <div>
                 <div className="text-[10px] text-[#444748] dark:text-[#9ca3af] font-['JetBrains_Mono'] uppercase">
-                  Liquidity Pool
+                  Summit Culture
                 </div>
-                <div className="text-sm font-bold text-[#1b1c1a] dark:text-white">99.8% Locked</div>
+                <div className="text-sm font-bold text-[#1b1c1a] dark:text-white">100% Fair Launch</div>
               </div>
               <span className="text-xs font-bold text-[#22C55E] bg-[#22C55E]/15 px-2.5 py-1 rounded-full">
-                +348%
+                0% TAX
               </span>
             </div>
 
             <div className="h-1.5 w-full bg-[#747878]/20 dark:bg-white/20 rounded-full overflow-hidden">
-              <div className="h-full bg-[#22C55E] w-3/4 rounded-full transition-all duration-500"></div>
+              <div className="h-full bg-[#22C55E] w-5/6 rounded-full transition-all duration-500"></div>
             </div>
             {isCopiedToken && (
               <div className="mt-2 text-[10px] font-['JetBrains_Mono'] text-[#006e2f] dark:text-[#4ade80] text-center">
-                ✓ Opening project details...
+                ✓ Opening $PEAK details...
               </div>
             )}
           </div>

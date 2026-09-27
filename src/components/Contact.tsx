@@ -21,6 +21,42 @@ export const Contact: React.FC = () => {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formState.name || !formState.handleOrEmail) return;
+
+    // Method C: Formulate a clean mailto draft and open client's default email composer
+    const subject = encodeURIComponent(`Project Brief: ${formState.projectType} — ${formState.name}`);
+    const bodyContent = `Hi Senku,
+
+I'm reaching out regarding a project with the following brief:
+
+• Client / Alias: ${formState.name}
+• Contact Handle / Email: ${formState.handleOrEmail}
+• Project Type: ${formState.projectType}
+
+Project Scope & Timeline Details:
+${formState.message || 'Looking forward to discussing scope, timeline, and pricing.'}
+
+Best regards,
+${formState.name}`;
+
+    const mailtoUrl = `mailto:${PORTFOLIO_DATA.developer.contactEmail}?subject=${subject}&body=${encodeURIComponent(bodyContent)}`;
+    
+    // Open email composer
+    window.location.href = mailtoUrl;
+
+    // Show confirmation UI
+    setFormSubmitted(true);
+  };
+
+  const handleSendViaTelegram = () => {
+    if (!formState.name || !formState.handleOrEmail) return;
+    const text = encodeURIComponent(`🚀 *New Project Inquiry*
+• *Name:* ${formState.name}
+• *Contact:* ${formState.handleOrEmail}
+• *Project:* ${formState.projectType}
+• *Brief:* ${formState.message || 'Looking to discuss details'}`);
+
+    const tgUrl = `https://t.me/dragonofthe_westt?text=${text}`;
+    window.open(tgUrl, '_blank', 'noopener,noreferrer');
     setFormSubmitted(true);
   };
 
@@ -161,7 +197,10 @@ export const Contact: React.FC = () => {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleFormSubmit} className="space-y-4">
+            <form
+              onSubmit={handleFormSubmit}
+              className="space-y-4 text-left"
+            >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label
@@ -172,6 +211,7 @@ export const Contact: React.FC = () => {
                   </label>
                   <input
                     id="contact-name"
+                    name="name"
                     type="text"
                     required
                     value={formState.name}
@@ -191,6 +231,7 @@ export const Contact: React.FC = () => {
                   </label>
                   <input
                     id="contact-handle"
+                    name="handleOrEmail"
                     type="text"
                     required
                     value={formState.handleOrEmail}
@@ -212,6 +253,7 @@ export const Contact: React.FC = () => {
                 </label>
                 <select
                   id="contact-project-type"
+                  name="projectType"
                   value={formState.projectType}
                   onChange={(e) =>
                     setFormState({ ...formState, projectType: e.target.value })
@@ -235,6 +277,7 @@ export const Contact: React.FC = () => {
                 </label>
                 <textarea
                   id="contact-message"
+                  name="message"
                   rows={3}
                   value={formState.message}
                   onChange={(e) =>
@@ -245,14 +288,28 @@ export const Contact: React.FC = () => {
                 ></textarea>
               </div>
 
-              <motion.button
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
-                type="submit"
-                className="w-full py-3 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium transition-colors rounded cursor-pointer"
-              >
-                Send Project Brief
-              </motion.button>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <motion.button
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
+                  type="submit"
+                  className="w-full py-3 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium transition-colors rounded cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <span className="material-symbols-outlined text-[18px]">email</span>
+                  <span>Send via Email</span>
+                </motion.button>
+
+                <motion.button
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
+                  type="button"
+                  onClick={handleSendViaTelegram}
+                  className="w-full py-3 bg-[#0088cc]/15 dark:bg-[#0088cc]/25 text-[#0088cc] dark:text-[#38bdf8] border border-[#0088cc]/40 hover:bg-[#0088cc] hover:text-white dark:hover:bg-[#0088cc] dark:hover:text-white font-['Inter'] text-sm font-medium transition-colors rounded cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <span className="material-symbols-outlined text-[18px]">send</span>
+                  <span>Send via Telegram</span>
+                </motion.button>
+              </div>
             </form>
           )}
         </motion.div>
