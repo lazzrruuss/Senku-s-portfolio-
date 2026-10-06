@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
 import { Project } from '../data/portfolioData';
+import { sound } from '../utils/soundEffects';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ProjectCardProps {
   project: Project;
@@ -11,6 +13,11 @@ interface ProjectCardProps {
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onOpenDetails }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const { t } = useLanguage();
+
+  const localized = t.projects[project.id];
+  const displayTitle = localized?.title || project.title;
+  const displayDesc = localized?.description || project.description;
 
   // Motion values for smooth 3D tilt & spotlight
   const mouseX = useMotionValue(0);
@@ -39,7 +46,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onOpen
     rotateY.set(rotY);
   };
 
-  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseEnter = () => {
+    sound.playHover();
+    setIsHovered(true);
+  };
   const handleMouseLeave = () => {
     setIsHovered(false);
     rotateX.set(0);
@@ -63,7 +73,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onOpen
         transformStyle: 'preserve-3d',
       }}
       whileTap={{ scale: 0.985 }}
-      onClick={() => onOpenDetails(project)}
+      onClick={() => {
+        sound.playClick(900);
+        onOpenDetails(project);
+      }}
       className="bg-[#faf9f5] dark:bg-[#16171c] p-8 flex flex-col justify-between shadow-xs hover:shadow-2xl transition-all duration-300 border border-[#747878]/15 dark:border-white/10 hover:border-[#1b1c1a]/40 dark:hover:border-[#22C55E]/60 group cursor-pointer relative overflow-hidden rounded-sm"
     >
       {/* Interactive Cursor Spotlight Illumination */}
@@ -90,11 +103,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onOpen
         </div>
 
         <h3 className="font-['Space_Grotesk'] text-2xl font-medium text-[#1b1c1a] dark:text-white mb-3 group-hover:text-[#22C55E] dark:group-hover:text-[#22C55E] transition-colors duration-200">
-          {project.title}
+          {displayTitle}
         </h3>
 
         <p className="font-['Inter'] text-[15px] text-[#444748] dark:text-[#d1d5db] leading-relaxed mb-6">
-          {project.description}
+          {displayDesc}
         </p>
 
         <div className="flex flex-wrap gap-2 mb-8">
@@ -119,7 +132,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onOpen
               onClick={(e) => e.stopPropagation()}
               className="font-['Inter'] text-[13px] font-medium text-[#1b1c1a] dark:text-white hover:text-[#22C55E] dark:hover:text-[#22C55E] flex items-center gap-1.5 transition-colors duration-200 py-1"
             >
-              <span>{project.actionText}</span>
+              <span>{t.work.launchLive}</span>
               <span className="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">open_in_new</span>
             </a>
           ) : (
@@ -131,7 +144,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onOpen
               }}
               className="font-['Inter'] text-[13px] font-medium text-[#1b1c1a] dark:text-white group-hover:text-[#22C55E] dark:group-hover:text-[#22C55E] flex items-center gap-1.5 transition-colors duration-200 py-1 cursor-pointer"
             >
-              <span>{project.actionText}</span>
+              <span>{t.work.caseStudy}</span>
               <span className="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200">
                 {project.actionType === 'repo' ? 'code' : 'open_in_new'}
               </span>
@@ -146,7 +159,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onOpen
             }}
             className="font-['Inter'] text-[12px] text-[#747878] dark:text-[#9ca3af] hover:text-[#1b1c1a] dark:hover:text-white underline underline-offset-2 transition-colors cursor-pointer"
           >
-            Case Study
+            {t.work.caseStudy}
           </button>
         </div>
 

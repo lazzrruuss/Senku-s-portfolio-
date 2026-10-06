@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { NavigationProvider, useNavigation } from './context/NavigationContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { ProjectModal } from './components/ProjectModal';
+import { CommandPalette } from './components/CommandPalette';
+import { BrandedPreloader } from './components/BrandedPreloader';
 import { HomePage } from './pages/HomePage';
 import { WorkPage } from './pages/WorkPage';
 import { AboutPage } from './pages/AboutPage';
@@ -15,6 +18,8 @@ import { PORTFOLIO_DATA, Project } from './data/portfolioData';
 function PortfolioApp() {
   const { currentPage, pendingProjectId, clearPendingProjectId } = useNavigation();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
+  const [hasPreloaded, setHasPreloaded] = useState<boolean>(false);
 
   // If a project ID was targeted during navigation (e.g. from Hero cards)
   useEffect(() => {
@@ -57,8 +62,13 @@ function PortfolioApp() {
 
   return (
     <div className="min-h-screen bg-[#faf9f5] dark:bg-[#090a0c] font-['Inter'] text-[#1b1c1a] dark:text-[#ffffff] antialiased selection:bg-[#22C55E] selection:text-black flex flex-col transition-colors duration-200">
-      {/* Top Fixed Header with multi-page navigation */}
-      <Navbar />
+      {/* Lightweight Branded Entry Preloader */}
+      {!hasPreloaded && (
+        <BrandedPreloader onComplete={() => setHasPreloaded(true)} />
+      )}
+
+      {/* Top Fixed Header with multi-page navigation and command palette */}
+      <Navbar onOpenCommandPalette={() => setIsCommandPaletteOpen(true)} />
 
       {/* Main Content Area with buttery-smooth kinetic page transitions */}
       <main className="w-full pt-20 bg-[#faf9f5] dark:bg-[#090a0c] flex-grow transition-colors duration-200 overflow-hidden">
@@ -84,6 +94,13 @@ function PortfolioApp() {
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
       />
+
+      {/* Global Command Palette (Cmd+K) */}
+      <CommandPalette
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        onOpenProject={(proj) => setSelectedProject(proj)}
+      />
     </div>
   );
 }
@@ -91,9 +108,11 @@ function PortfolioApp() {
 export default function App() {
   return (
     <ThemeProvider>
-      <NavigationProvider>
-        <PortfolioApp />
-      </NavigationProvider>
+      <LanguageProvider>
+        <NavigationProvider>
+          <PortfolioApp />
+        </NavigationProvider>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

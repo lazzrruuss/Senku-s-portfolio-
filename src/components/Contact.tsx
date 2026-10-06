@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
+import { sound } from '../utils/soundEffects';
+import { useLanguage } from '../context/LanguageContext';
 
 export const Contact: React.FC = () => {
   const [copiedType, setCopiedType] = useState<string | null>(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const { t } = useLanguage();
   const [formState, setFormState] = useState({
     name: '',
     handleOrEmail: '',
@@ -13,6 +16,7 @@ export const Contact: React.FC = () => {
   });
 
   const copyToClipboard = (text: string, type: string) => {
+    sound.playClick(900);
     navigator.clipboard?.writeText?.(text);
     setCopiedType(type);
     setTimeout(() => setCopiedType(null), 2500);
@@ -22,7 +26,7 @@ export const Contact: React.FC = () => {
     e.preventDefault();
     if (!formState.name || !formState.handleOrEmail) return;
 
-    // Method C: Formulate a clean mailto draft and open client's default email composer
+    // Formulate mailto draft and open client's default email composer
     const subject = encodeURIComponent(`Project Brief: ${formState.projectType} — ${formState.name}`);
     const bodyContent = `Hi Senku,
 
@@ -71,19 +75,19 @@ ${formState.name}`;
           className="flex flex-col items-center gap-4"
         >
           <span className="font-['JetBrains_Mono'] text-xs text-[#006e2f] dark:text-[#4ade80] uppercase tracking-widest font-medium">
-            Get in Touch
+            {t.contact.badge}
           </span>
 
           <h2 className="font-['Space_Grotesk'] text-3xl sm:text-4xl font-medium text-[#1b1c1a] dark:text-white tracking-tight">
-            Have a project in mind?
+            {t.contact.title}
           </h2>
 
           <p className="font-['Inter'] text-lg sm:text-[18px] text-[#444748] dark:text-[#d1d5db] max-w-xl leading-relaxed">
-            Let's turn your idea into a website. Reach out directly via Telegram or X to discuss your next launch.
+            {t.contact.subtitle}
           </p>
         </motion.div>
 
-        {/* Primary Contact CTAs matching Stitch design with scroll and hover animations */}
+        {/* Primary Contact CTAs matching design with scroll and hover animations */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -146,7 +150,7 @@ ${formState.name}`;
           </motion.div>
         </motion.div>
 
-        {/* Optional Project Brief Quick Form */}
+        {/* Project Brief Quick Form */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -156,7 +160,7 @@ ${formState.name}`;
         >
           <div className="text-center mb-6">
             <span className="font-['JetBrains_Mono'] text-xs uppercase tracking-wider text-[#747878] dark:text-[#9ca3af]">
-              Or send an instant inquiry
+              {t.contact.formTitle}
             </span>
           </div>
 
@@ -166,19 +170,10 @@ ${formState.name}`;
                 check_circle
               </span>
               <h3 className="font-['Space_Grotesk'] text-lg font-medium text-[#1b1c1a] dark:text-white">
-                Inquiry received!
+                {t.contact.successTitle}
               </h3>
               <p className="font-['Inter'] text-sm text-[#444748] dark:text-[#d1d5db] mt-1 mb-4">
-                Thank you, {formState.name}. You can also reach out on Telegram{' '}
-                <a
-                  href={PORTFOLIO_DATA.developer.telegramUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-[#006e2f] dark:text-[#4ade80] underline font-medium"
-                >
-                  @{PORTFOLIO_DATA.developer.telegramHandle}
-                </a>{' '}
-                for immediate response.
+                {t.contact.successDesc}
               </p>
               <button
                 type="button"
@@ -207,7 +202,7 @@ ${formState.name}`;
                     htmlFor="contact-name"
                     className="block text-xs font-['JetBrains_Mono'] text-[#444748] dark:text-[#d1d5db] uppercase tracking-wider mb-1"
                   >
-                    Your Name / Alias
+                    {t.contact.nameLabel}
                   </label>
                   <input
                     id="contact-name"
@@ -227,7 +222,7 @@ ${formState.name}`;
                     htmlFor="contact-handle"
                     className="block text-xs font-['JetBrains_Mono'] text-[#444748] dark:text-[#d1d5db] uppercase tracking-wider mb-1"
                   >
-                    Telegram Handle or Email
+                    {t.contact.contactLabel}
                   </label>
                   <input
                     id="contact-handle"
@@ -249,7 +244,7 @@ ${formState.name}`;
                   htmlFor="contact-project-type"
                   className="block text-xs font-['JetBrains_Mono'] text-[#444748] dark:text-[#d1d5db] uppercase tracking-wider mb-1"
                 >
-                  Project Type
+                  {t.contact.typeLabel}
                 </label>
                 <select
                   id="contact-project-type"
@@ -273,7 +268,7 @@ ${formState.name}`;
                   htmlFor="contact-message"
                   className="block text-xs font-['JetBrains_Mono'] text-[#444748] dark:text-[#d1d5db] uppercase tracking-wider mb-1"
                 >
-                  Project Scope & Timeline
+                  {t.contact.messageLabel}
                 </label>
                 <textarea
                   id="contact-message"
@@ -296,7 +291,7 @@ ${formState.name}`;
                   className="w-full py-3 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium transition-colors rounded cursor-pointer flex items-center justify-center gap-2"
                 >
                   <span className="material-symbols-outlined text-[18px]">email</span>
-                  <span>Send via Email</span>
+                  <span>{t.contact.submitMail}</span>
                 </motion.button>
 
                 <motion.button
@@ -307,7 +302,7 @@ ${formState.name}`;
                   className="w-full py-3 bg-[#0088cc]/15 dark:bg-[#0088cc]/25 text-[#0088cc] dark:text-[#38bdf8] border border-[#0088cc]/40 hover:bg-[#0088cc] hover:text-white dark:hover:bg-[#0088cc] dark:hover:text-white font-['Inter'] text-sm font-medium transition-colors rounded cursor-pointer flex items-center justify-center gap-2"
                 >
                   <span className="material-symbols-outlined text-[18px]">send</span>
-                  <span>Send via Telegram</span>
+                  <span>{t.contact.submitTg}</span>
                 </motion.button>
               </div>
             </form>

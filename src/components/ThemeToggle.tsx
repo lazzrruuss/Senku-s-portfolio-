@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { sound } from '../utils/soundEffects';
 
 interface ThemeToggleProps {
   className?: string;
@@ -10,13 +11,18 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
   className = '',
   showLabel = false,
 }) => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme, isTransitioning } = useTheme();
   const isDark = theme === 'dark';
+
+  const handleClick = () => {
+    sound.playClick(isDark ? 900 : 700);
+    toggleTheme();
+  };
 
   return (
     <button
       type="button"
-      onClick={toggleTheme}
+      onClick={handleClick}
       className={`relative inline-flex items-center gap-2 p-2 sm:px-3 sm:py-1.5 rounded-full border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#22C55E] cursor-pointer ${
         isDark
           ? 'bg-[#18191e] border-[#27272a] text-white hover:border-[#4ade80] hover:text-[#4ade80]'
@@ -26,13 +32,13 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
       aria-pressed={isDark}
       title={isDark ? 'Switch to light theme' : 'Switch to high-contrast dark theme'}
     >
-      <div className="relative w-5 h-5 flex items-center justify-center">
+      <div className={`relative w-5 h-5 flex items-center justify-center transition-transform duration-500 ${isTransitioning ? 'scale-110' : ''}`}>
         {isDark ? (
-          <span className="material-symbols-outlined text-[18px] text-[#22C55E] transition-transform duration-300 rotate-0">
+          <span className="material-symbols-outlined text-[18px] text-[#22C55E] transition-all duration-300 rotate-0 hover:rotate-45">
             light_mode
           </span>
         ) : (
-          <span className="material-symbols-outlined text-[18px] text-[#1b1c1a] transition-transform duration-300 rotate-0">
+          <span className="material-symbols-outlined text-[18px] text-[#1b1c1a] transition-all duration-300 rotate-0 hover:-rotate-45">
             dark_mode
           </span>
         )}

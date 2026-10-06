@@ -2,9 +2,11 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 import { useNavigation, PageId } from '../context/NavigationContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export const Footer: React.FC = () => {
   const { currentPage, navigateTo } = useNavigation();
+  const { language, t } = useLanguage();
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -14,11 +16,11 @@ export const Footer: React.FC = () => {
   };
 
   const navLinks: { id: PageId; label: string }[] = [
-    { id: 'home', label: 'Home' },
-    { id: 'work', label: 'Work' },
-    { id: 'about', label: 'About' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'home', label: t.nav.home },
+    { id: 'work', label: t.nav.work },
+    { id: 'about', label: t.nav.about },
+    { id: 'skills', label: t.nav.skills },
+    { id: 'contact', label: t.nav.contact },
   ];
 
   return (
@@ -35,12 +37,12 @@ export const Footer: React.FC = () => {
           <button
             type="button"
             onClick={() => navigateTo('home')}
-            className="font-['Space_Grotesk'] text-base font-semibold text-[#1b1c1a] dark:text-white tracking-tight cursor-pointer"
+            className="font-['Space_Grotesk'] text-base font-semibold text-[#1b1c1a] dark:text-white tracking-tight cursor-pointer flex items-center gap-1"
           >
-            SENKU<span className="text-[#22C55E]">.</span>
+            SENKU{(language === 'ja' || language === 'zh') ? <span className="text-xs normal-case font-normal text-[#747878] dark:text-[#9ca3af] font-['JetBrains_Mono']">千空</span> : ''}<span className="text-[#22C55E]">.</span>
           </button>
           <span className="hidden sm:inline text-[#747878] dark:text-[#9ca3af]">·</span>
-          <span>© 2024 Senku. Built for the decentralized web.</span>
+          <span>© 2026 {t.footer.rights}</span>
         </div>
 
         {/* Footer Navigation & Social Links */}

@@ -51,8 +51,75 @@
     background-color: var(--color-bg-page);
     color: var(--color-text-main);
     font-family: var(--font-sans), sans-serif;
-    transition: background-color 0.25s ease, color 0.25s ease;
   }
+}
+
+/* =========================================================================
+   DOCUMENT-WIDE THEME CROSS-FADE TRANSITIONS
+   ========================================================================= */
+
+/* Native W3C View Transitions API: Film-grade document cross-fade */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(root) {
+  animation-name: theme-cross-fade-out;
+}
+
+::view-transition-new(root) {
+  animation-name: theme-cross-fade-in;
+}
+
+@keyframes theme-cross-fade-out {
+  from {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  to {
+    opacity: 0;
+    filter: brightness(0.96);
+  }
+}
+
+@keyframes theme-cross-fade-in {
+  from {
+    opacity: 0;
+    filter: brightness(1.04);
+  }
+  to {
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+/* Universal Cross-Fade Smooth Interpolation on all DOM elements */
+html.theme-cross-fade,
+html.theme-cross-fade body,
+html.theme-cross-fade header,
+html.theme-cross-fade main,
+html.theme-cross-fade footer,
+html.theme-cross-fade section,
+html.theme-cross-fade nav,
+html.theme-cross-fade div,
+html.theme-cross-fade button,
+html.theme-cross-fade p,
+html.theme-cross-fade h1,
+html.theme-cross-fade h2,
+html.theme-cross-fade h3,
+html.theme-cross-fade span,
+html.theme-cross-fade svg,
+html.theme-cross-fade kbd,
+html.theme-cross-fade input,
+html.theme-cross-fade textarea {
+  transition: background-color 420ms cubic-bezier(0.4, 0, 0.2, 1),
+              color 420ms cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 420ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 420ms cubic-bezier(0.4, 0, 0.2, 1),
+              fill 420ms cubic-bezier(0.4, 0, 0.2, 1),
+              stroke 420ms cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 @keyframes floatSlow {

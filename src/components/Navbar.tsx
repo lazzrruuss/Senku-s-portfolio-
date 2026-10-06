@@ -2,16 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useSpring } from 'motion/react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 import { ThemeToggle } from './ThemeToggle';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import { useNavigation, PageId } from '../context/NavigationContext';
+import { useLanguage } from '../context/LanguageContext';
+import { sound } from '../utils/soundEffects';
 
 interface NavbarProps {
-  onOpenContactModal?: () => void;
+  onOpenCommandPalette?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = () => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMuted, setIsMuted] = useState(sound.getMuted());
   const { currentPage, navigateTo } = useNavigation();
+  const { language, t } = useLanguage();
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -29,16 +34,22 @@ export const Navbar: React.FC<NavbarProps> = () => {
   }, []);
 
   const handleNavClick = (page: PageId) => {
+    sound.playClick(800);
     setMobileMenuOpen(false);
     navigateTo(page);
   };
 
+  const handleToggleSound = () => {
+    const newMuted = sound.toggleMute();
+    setIsMuted(newMuted);
+  };
+
   const navLinks: { id: PageId; label: string; num: string }[] = [
-    { id: 'home', label: 'Home', num: '00' },
-    { id: 'work', label: 'Work', num: '01' },
-    { id: 'about', label: 'About', num: '02' },
-    { id: 'skills', label: 'Skills', num: '03' },
-    { id: 'contact', label: 'Contact', num: '04' },
+    { id: 'home', label: t.nav.home, num: '00' },
+    { id: 'work', label: t.nav.work, num: '01' },
+    { id: 'about', label: t.nav.about, num: '02' },
+    { id: 'skills', label: t.nav.skills, num: '03' },
+    { id: 'contact', label: t.nav.contact, num: '04' },
   ];
 
   return (
@@ -65,7 +76,12 @@ export const Navbar: React.FC<NavbarProps> = () => {
             className="text-lg sm:text-xl font-medium tracking-tighter text-[#1b1c1a] dark:text-white uppercase flex items-center gap-1 font-['Space_Grotesk'] group cursor-pointer"
             onClick={() => handleNavClick('home')}
           >
-            SENKU<span className="text-[#22C55E] group-hover:scale-125 transition-transform duration-200">.</span>
+            SENKU{(language === 'ja' || language === 'zh') && (
+              <span className="text-xs normal-case font-normal text-[#747878] dark:text-[#9ca3af] ml-1 tracking-normal font-['JetBrains_Mono']">
+                千空
+              </span>
+            )}
+            <span className="text-[#22C55E] group-hover:scale-125 transition-transform duration-200">.</span>
           </button>
 
           <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10 text-xs text-[#006e2f] dark:text-[#4ade80] font-['JetBrains_Mono']">
@@ -73,7 +89,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22C55E] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22C55E]"></span>
             </span>
-            <span>{PORTFOLIO_DATA.developer.availability}</span>
+            <span>{t.nav.available}</span>
           </div>
         </div>
 
@@ -103,8 +119,42 @@ export const Navbar: React.FC<NavbarProps> = () => {
           })}
         </nav>
 
-        {/* Action Controls: Theme Toggle + Contact Button + Mobile Menu */}
-        <div className="flex items-center gap-2.5 sm:gap-3">
+        {/* Action Controls: Search/Command Palette + Language Switcher + Sound Toggle + Theme Toggle + Contact */}
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          {/* Command Palette Button (⌘K) */}
+          <button
+            type="button"
+            onClick={() => {
+              sound.playClick(900);
+              onOpenCommandPalette?.();
+            }}
+            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/20 dark:border-white/10 text-[#747878] dark:text-[#9ca3af] hover:text-[#1b1c1a] dark:hover:text-white hover:border-[#22C55E] transition-all cursor-pointer font-['JetBrains_Mono'] text-xs"
+            title={t.nav.search}
+          >
+            <span className="material-symbols-outlined text-[15px]">search</span>
+            <span className="text-[10px] bg-black/10 dark:bg-white/10 px-1.5 py-0.5 rounded">⌘K</span>
+          </button>
+
+          {/* Language Switcher (EN / JA) */}
+          <LanguageSwitcher />
+
+          {/* Sound FX Toggle Button */}
+          <button
+            type="button"
+            onClick={handleToggleSound}
+            className={`w-9 h-9 rounded-lg flex items-center justify-center border transition-all cursor-pointer ${
+              !isMuted
+                ? 'bg-[#22C55E]/10 border-[#22C55E]/40 text-[#006e2f] dark:text-[#4ade80]'
+                : 'bg-[#f4f4f0] dark:bg-[#16171c] border-[#747878]/20 dark:border-white/10 text-[#747878] dark:text-[#9ca3af]'
+            }`}
+            title={isMuted ? 'Unmute Sound Effects' : 'Mute Sound Effects'}
+            aria-label="Toggle sound effects"
+          >
+            <span className="material-symbols-outlined text-[17px]">
+              {isMuted ? 'volume_off' : 'volume_up'}
+            </span>
+          </button>
+
           {/* Theme Toggle Button */}
           <ThemeToggle />
 
@@ -127,7 +177,10 @@ export const Navbar: React.FC<NavbarProps> = () => {
           <button
             type="button"
             className="md:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/20 dark:border-white/10 text-[#1b1c1a] dark:text-white hover:bg-[#efeeea] dark:hover:bg-[#212328] transition-colors cursor-pointer"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() => {
+              sound.playClick(600);
+              setMobileMenuOpen(!mobileMenuOpen);
+            }}
             aria-label="Toggle mobile menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -145,10 +198,10 @@ export const Navbar: React.FC<NavbarProps> = () => {
             <div className="flex items-center justify-between pb-3 mb-2 border-b border-[#747878]/15 dark:border-white/10">
               <div className="flex items-center gap-2 text-xs text-[#006e2f] dark:text-[#4ade80]">
                 <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse"></span>
-                <span>Available for projects</span>
+                <span>{t.nav.available}</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[11px] text-[#747878] dark:text-[#9ca3af]">Theme</span>
+                <LanguageSwitcher compact />
                 <ThemeToggle showLabel />
               </div>
             </div>

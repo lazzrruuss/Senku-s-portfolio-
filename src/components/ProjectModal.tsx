@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Project } from '../data/portfolioData';
+import { sound } from '../utils/soundEffects';
+import { useLanguage, Language } from '../context/LanguageContext';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -8,12 +10,90 @@ interface ProjectModalProps {
 }
 
 export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
-  const [activeTab, setActiveTab] = useState<'overview' | 'interactive'>('overview');
-  const [copiedContract, setCopiedContract] = useState(false);
-  const [simulatedGasAmount, setSimulatedGasAmount] = useState(12);
   const [readProgress, setReadProgress] = useState(0);
-
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const { language, t } = useLanguage();
+
+  const jumpText: Record<Language, string> = { en: 'Jump:', ja: '移動:', zh: '跳转:', es: 'Ir a:', ko: '이동:', fr: 'Aller à:' };
+  const jumpAbout: Record<Language, string> = { en: 'About', ja: '概要', zh: '概要', es: 'Acerca', ko: '소개', fr: 'À propos' };
+  const jumpMetrics: Record<Language, string> = { en: 'Metrics', ja: '指標', zh: '指标', es: 'Métricas', ko: '지표', fr: 'Indicateurs' };
+  const jumpFeatures: Record<Language, string> = { en: 'Features', ja: '機能', zh: '功能', es: 'Funciones', ko: '기능', fr: 'Fonctionnalités' };
+  const jumpTech: Record<Language, string> = { en: 'Tech', ja: '技術', zh: '技术', es: 'Tecnología', ko: '기술', fr: 'Tech' };
+
+  const readLabel: Record<Language, string> = {
+    en: 'READ',
+    ja: '読了',
+    zh: '已阅读',
+    es: 'LEÍDO',
+    ko: '읽음',
+    fr: 'LU',
+  };
+  const caseStudyOverviewText: Record<Language, string> = {
+    en: 'Case Study Overview',
+    ja: '制作事例の概要',
+    zh: '案例解析总览',
+    es: 'Resumen del Estudio',
+    ko: '프로젝트 개요',
+    fr: "Aperçu de l'Étude de Cas",
+  };
+  const aboutHeading: Record<Language, string> = {
+    en: 'About this project',
+    ja: 'プロジェクト詳細',
+    zh: '关于该项目',
+    es: 'Acerca de este proyecto',
+    ko: '프로젝트 소개',
+    fr: 'À propos de ce projet',
+  };
+  const metricsHeading: Record<Language, string> = {
+    en: 'Key Metrics & Architecture',
+    ja: '主要指標 & アーキテクチャ',
+    zh: '核心指标与架构',
+    es: 'Métricas Clave y Arquitectura',
+    ko: '핵심 지표 및 아키텍처',
+    fr: 'Indicateurs Clés & Architecture',
+  };
+  const capabilitiesHeading: Record<Language, string> = {
+    en: 'Key Frontend Capabilities',
+    ja: '主要フロントエンド実装',
+    zh: '核心前端功能实现',
+    es: 'Capacidades Frontend Clave',
+    ko: '주요 프론트엔드 기능',
+    fr: 'Fonctionnalités Frontend Clés',
+  };
+  const techHeading: Record<Language, string> = {
+    en: 'Technologies Used',
+    ja: '採用技術スタック',
+    zh: '所采用技术栈',
+    es: 'Tecnologías Utilizadas',
+    ko: '사용 기술 스택',
+    fr: 'Technologies Utilisées',
+  };
+  const closeBtnText: Record<Language, string> = {
+    en: 'Close',
+    ja: '閉じる',
+    zh: '关闭',
+    es: 'Cerrar',
+    ko: '닫기',
+    fr: 'Fermer',
+  };
+  const buildBtnText: Record<Language, string> = {
+    en: 'Build Similar Project',
+    ja: '開発を相談する',
+    zh: '定制类似项目',
+    es: 'Crear Proyecto Similar',
+    ko: '유사 프로젝트 의뢰',
+    fr: 'Créer un Projet Similaire',
+  };
+
+  const getReadStr = () => {
+    const l = readLabel[language] || 'READ';
+    return readProgress >= 99 ? `✓ 100% ${l}` : `${readProgress}% ${l}`;
+  };
+  const localized = project ? t.projects[project.id] : null;
+  const displayTitle = localized?.title || project?.title || '';
+  const displayCategory = localized?.category || project?.category || '';
+  const displayDetailed = localized?.detailedDescription || project?.detailedDescription || '';
+  const displayFeatures = localized?.features || project?.features || [];
 
   // Calculate scroll progress percentage through the project description
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
@@ -28,18 +108,17 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     setReadProgress(percentage);
   };
 
-  // Reset scroll position and progress when project or tab changes
+  // Reset scroll position and progress when project changes
   useEffect(() => {
     setReadProgress(0);
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTop = 0;
-      // Check if content fits in container without scrolling
       const maxScroll = scrollContainerRef.current.scrollHeight - scrollContainerRef.current.clientHeight;
       if (maxScroll <= 10) {
         setReadProgress(100);
       }
     }
-  }, [project?.id, activeTab]);
+  }, [project?.id]);
 
   // Recalculate on initial render or resize
   useEffect(() => {
@@ -56,19 +135,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
       }
     }, 100);
     return () => clearTimeout(timer);
-  }, [project, activeTab]);
+  }, [project]);
 
   if (!project) return null;
 
-  const mockContractAddress = '0x71C...392F8e5';
-
-  const handleCopyContract = () => {
-    navigator.clipboard?.writeText?.(mockContractAddress);
-    setCopiedContract(true);
-    setTimeout(() => setCopiedContract(false), 2000);
-  };
-
   const scrollToSection = (sectionId: string) => {
+    sound.playClick(900);
     const el = document.getElementById(sectionId);
     if (el && scrollContainerRef.current) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -105,11 +177,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22C55E]" />
           </span>
           <span className="text-white/80 uppercase tracking-wider font-medium truncate max-w-[140px] sm:max-w-xs">
-            {project.title}
+            {displayTitle}
           </span>
           <span className="text-white/40 font-mono">|</span>
           <span className="text-[#22C55E] font-bold tracking-tight">
-            {readProgress >= 99 ? '✓ 100% READ' : `${readProgress}% READ`}
+            {getReadStr()}
           </span>
         </motion.div>
       </AnimatePresence>
@@ -146,24 +218,27 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 <span className="font-['JetBrains_Mono'] text-xs text-[#747878] dark:text-[#9ca3af]">
                   {project.number}
                 </span>
-                <span className="text-[11px] font-['JetBrains_Mono'] text-[#006e2f] dark:text-[#4ade80] bg-[#22C55E]/10 px-2 py-0.5 rounded">
-                  {readProgress}% READ
+                <span className="text-[11px] font-['JetBrains_Mono'] text-[#006e2f] dark:text-[#4ade80] bg-[#22C55E]/10 px-2 py-0.5 rounded font-medium">
+                  {getReadStr()}
                 </span>
               </div>
               <h2
                 id="modal-title"
                 className="text-2xl sm:text-3xl font-medium font-['Space_Grotesk'] text-[#1b1c1a] dark:text-white"
               >
-                {project.title}
+                {displayTitle}
               </h2>
               <p className="text-xs sm:text-sm font-['JetBrains_Mono'] text-[#006e2f] dark:text-[#4ade80] uppercase tracking-wider mt-1">
-                {project.category} · {project.year}
+                {displayCategory} · {project.year}
               </p>
             </div>
 
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => {
+                sound.playClick(500);
+                onClose();
+              }}
               className="w-9 h-9 rounded-full bg-[#efeeea] dark:bg-[#212328] hover:bg-[#1b1c1a] dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors flex items-center justify-center text-[#1b1c1a] dark:text-white cursor-pointer"
               aria-label="Close modal"
             >
@@ -171,281 +246,126 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             </button>
           </div>
 
-          {/* Tab Navigation & Quick Jump */}
-          <div className="flex flex-wrap items-center justify-between border-b border-[#747878]/15 dark:border-white/10 px-6 bg-[#faf9f5] dark:bg-[#121316]">
-            <div className="flex">
+          {/* Section Navigation Quick Jump */}
+          <div className="flex items-center justify-between border-b border-[#747878]/15 dark:border-white/10 px-6 py-2.5 bg-[#faf9f5] dark:bg-[#121316] text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af]">
+            <span className="text-xs font-semibold text-[#1b1c1a] dark:text-white">
+              {caseStudyOverviewText[language] || 'Case Study Overview'}
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="hidden sm:inline">{jumpText[language] || 'Jump:'}</span>
               <button
                 type="button"
-                onClick={() => setActiveTab('overview')}
-                className={`py-3 px-4 font-['JetBrains_Mono'] text-xs uppercase tracking-wider border-b-2 font-medium transition-colors cursor-pointer ${
-                  activeTab === 'overview'
-                    ? 'border-[#22C55E] text-[#1b1c1a] dark:text-white'
-                    : 'border-transparent text-[#747878] dark:text-[#9ca3af] hover:text-[#1b1c1a] dark:hover:text-white'
-                }`}
+                onClick={() => scrollToSection('section-about')}
+                className="hover:text-[#22C55E] transition-colors cursor-pointer"
               >
-                Project Overview
+                {jumpAbout[language] || 'About'}
               </button>
+              <span>·</span>
               <button
                 type="button"
-                onClick={() => setActiveTab('interactive')}
-                className={`py-3 px-4 font-['JetBrains_Mono'] text-xs uppercase tracking-wider border-b-2 font-medium transition-colors flex items-center gap-1.5 cursor-pointer ${
-                  activeTab === 'interactive'
-                    ? 'border-[#22C55E] text-[#1b1c1a] dark:text-white'
-                    : 'border-transparent text-[#747878] dark:text-[#9ca3af] hover:text-[#1b1c1a] dark:hover:text-white'
-                }`}
+                onClick={() => scrollToSection('section-highlights')}
+                className="hover:text-[#22C55E] transition-colors cursor-pointer"
               >
-                <span className="w-2 h-2 rounded-full bg-[#22C55E]"></span>
-                Interactive Demo Preview
+                {jumpMetrics[language] || 'Metrics'}
+              </button>
+              <span>·</span>
+              <button
+                type="button"
+                onClick={() => scrollToSection('section-features')}
+                className="hover:text-[#22C55E] transition-colors cursor-pointer"
+              >
+                {jumpFeatures[language] || 'Features'}
+              </button>
+              <span>·</span>
+              <button
+                type="button"
+                onClick={() => scrollToSection('section-tech')}
+                className="hover:text-[#22C55E] transition-colors cursor-pointer"
+              >
+                {jumpTech[language] || 'Tech'}
               </button>
             </div>
-
-            {/* Quick jump navigation for description sections */}
-            {activeTab === 'overview' && (
-              <div className="hidden sm:flex items-center gap-2 py-2 text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af]">
-                <span>Jump:</span>
-                <button
-                  type="button"
-                  onClick={() => scrollToSection('section-about')}
-                  className="hover:text-[#22C55E] transition-colors cursor-pointer"
-                >
-                  About
-                </button>
-                <span>·</span>
-                <button
-                  type="button"
-                  onClick={() => scrollToSection('section-features')}
-                  className="hover:text-[#22C55E] transition-colors cursor-pointer"
-                >
-                  Features
-                </button>
-                <span>·</span>
-                <button
-                  type="button"
-                  onClick={() => scrollToSection('section-tech')}
-                  className="hover:text-[#22C55E] transition-colors cursor-pointer"
-                >
-                  Tech
-                </button>
-              </div>
-            )}
           </div>
 
           {/* Modal Body */}
-          <div className="p-6 sm:p-8 space-y-6">
-            {activeTab === 'overview' ? (
-              <>
-                {/* Detailed Description */}
-                <div id="section-about">
-                  <h4 className="font-['Space_Grotesk'] text-lg font-medium text-[#1b1c1a] dark:text-white mb-2">
-                    About this project
-                  </h4>
-                  <p className="text-[#444748] dark:text-[#d1d5db] font-['Inter'] leading-relaxed">
-                    {project.detailedDescription}
-                  </p>
-                </div>
+          <div className="p-6 sm:p-8 space-y-8">
+            {/* Detailed Description */}
+            <div id="section-about">
+              <h4 className="font-['Space_Grotesk'] text-lg font-medium text-[#1b1c1a] dark:text-white mb-2">
+                {aboutHeading[language] || 'About this project'}
+              </h4>
+              <p className="text-[#444748] dark:text-[#d1d5db] font-['Inter'] leading-relaxed">
+                {displayDetailed}
+              </p>
+            </div>
 
-                {/* Highlights & Metrics */}
-                <div className="grid grid-cols-3 gap-3">
-                  {project.highlights.map((h, i) => (
-                    <div
-                      key={i}
-                      className="p-3 bg-[#f4f4f0] dark:bg-[#18191e] border border-[#747878]/15 dark:border-white/10 rounded text-center"
-                    >
-                      <div className="text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af] uppercase mb-1">
-                        {h.label}
-                      </div>
-                      <div className="text-xs sm:text-sm font-semibold text-[#1b1c1a] dark:text-white font-['Space_Grotesk']">
-                        {h.value}
-                      </div>
+            {/* Highlights & Metrics */}
+            <div id="section-highlights">
+              <h4 className="font-['Space_Grotesk'] text-sm uppercase tracking-wider font-medium text-[#1b1c1a] dark:text-white mb-3">
+                {metricsHeading[language] || 'Key Metrics & Architecture'}
+              </h4>
+              <div className="grid grid-cols-3 gap-3">
+                {project.highlights.map((h, i) => (
+                  <div
+                    key={i}
+                    className="p-3 bg-[#f4f4f0] dark:bg-[#18191e] border border-[#747878]/15 dark:border-white/10 rounded text-center"
+                  >
+                    <div className="text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af] uppercase mb-1">
+                      {h.label}
                     </div>
-                  ))}
-                </div>
-
-                {/* Key Features List */}
-                <div id="section-features">
-                  <h4 className="font-['Space_Grotesk'] text-sm uppercase tracking-wider font-medium text-[#1b1c1a] dark:text-white mb-3">
-                    Key Frontend Capabilities
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {project.features.map((feature, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-start gap-2.5 p-3 bg-white dark:bg-[#18191e] border border-[#747878]/15 dark:border-white/10 rounded text-sm text-[#1b1c1a] dark:text-white"
-                      >
-                        <span className="material-symbols-outlined text-[#22C55E] text-[18px] shrink-0 mt-0.5">
-                          check_circle
-                        </span>
-                        <span>{feature}</span>
-                      </div>
-                    ))}
+                    <div className="text-xs sm:text-sm font-semibold text-[#1b1c1a] dark:text-white font-['Space_Grotesk']">
+                      {h.value}
+                    </div>
                   </div>
-                </div>
-
-                {/* Tech Stack Chips */}
-                <div id="section-tech">
-                  <h4 className="font-['Space_Grotesk'] text-sm uppercase tracking-wider font-medium text-[#1b1c1a] dark:text-white mb-2">
-                    Technologies Used
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag, idx) => (
-                      <span
-                        key={idx}
-                        className="px-3 py-1 bg-[#efeeea] dark:bg-[#212328] font-['JetBrains_Mono'] text-xs text-[#1b1c1a] dark:text-white rounded"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </>
-            ) : (
-              /* Interactive Simulation Tab */
-              <div className="space-y-6">
-                <div className="p-4 bg-[#111111] dark:bg-[#0c0d10] text-white rounded-lg border border-white/10 dark:border-white/20 font-['JetBrains_Mono']">
-                  <div className="flex items-center justify-between pb-3 border-b border-white/15 mb-4 text-xs">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#22C55E] animate-pulse"></span>
-                      <span className="text-white/80">{project.title.toUpperCase()} // SANDBOX</span>
-                    </div>
-                    <span className="text-[#22C55E] text-[10px] bg-[#22C55E]/15 px-2 py-0.5 rounded">
-                      INTERACTIVE PROTOTYPE
-                    </span>
-                  </div>
-
-                  {project.id === 'grim-memecoin' && (
-                    <div className="space-y-4">
-                      <div className="bg-white/5 p-4 rounded border border-white/10">
-                        <div className="text-xs text-white/60 mb-1">Contract Address</div>
-                        <div className="flex items-center justify-between gap-2 bg-black/40 p-2 rounded">
-                          <span className="text-xs text-[#22C55E] font-mono">
-                            0xGRIM...42069
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              navigator.clipboard?.writeText?.('0xGRIM...42069');
-                              setCopiedContract(true);
-                              setTimeout(() => setCopiedContract(false), 2000);
-                            }}
-                            className="px-2 py-1 bg-white/10 hover:bg-[#22C55E] hover:text-black text-[10px] rounded transition-colors cursor-pointer"
-                          >
-                            {copiedContract ? 'COPIED!' : 'COPY'}
-                          </button>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-3 gap-2 text-center">
-                        <div className="p-3 bg-white/5 rounded">
-                          <div className="text-[10px] text-white/50">TOTAL SUPPLY</div>
-                          <div className="text-xs font-bold text-white mt-1">1,000,000,000</div>
-                        </div>
-                        <div className="p-3 bg-white/5 rounded">
-                          <div className="text-[10px] text-white/50">COMMUNITY LP</div>
-                          <div className="text-xs font-bold text-[#22C55E] mt-1">100% Fair</div>
-                        </div>
-                        <div className="p-3 bg-white/5 rounded">
-                          <div className="text-[10px] text-white/50">MEME LAB</div>
-                          <div className="text-xs font-bold text-white mt-1">Active Terminal</div>
-                        </div>
-                      </div>
-
-                      <div className="p-3 bg-white/5 rounded text-xs text-white/80 flex items-center justify-between">
-                        <span>⚡ Live Web3 Terminal & Portal</span>
-                        <a
-                          href={project.demoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#22C55E] underline flex items-center gap-1 font-bold"
-                        >
-                          <span>Open Live Terminal</span>
-                          <span className="material-symbols-outlined text-[14px]">open_in_new</span>
-                        </a>
-                      </div>
-                    </div>
-                  )}
-
-                  {project.id === 'pepeak-memecoin' && (
-                    <div className="space-y-4">
-                      <div className="text-xs text-white/70">
-                        Summit-Themed Tokenomics & Viral Mechanics
-                      </div>
-                      <div className="grid grid-cols-3 gap-2 text-center">
-                        <div className="p-3 bg-white/5 rounded border border-white/10">
-                          <div className="text-[10px] text-white/50">THEME</div>
-                          <div className="text-xs text-[#22C55E] font-bold mt-1">The Summit</div>
-                        </div>
-                        <div className="p-3 bg-white/5 rounded border border-white/10">
-                          <div className="text-[10px] text-white/50">BUY / SELL TAX</div>
-                          <div className="text-xs text-[#22C55E] font-bold mt-1">0% / 0%</div>
-                        </div>
-                        <div className="p-3 bg-white/5 rounded border border-white/10">
-                          <div className="text-[10px] text-white/50">MOBILE UX</div>
-                          <div className="text-xs text-[#22C55E] font-bold mt-1">100% Responsive</div>
-                        </div>
-                      </div>
-                      <div className="p-3 bg-white/5 rounded text-xs text-white/80 flex items-center justify-between">
-                        <span>🏔️ "The Top is a State of Mind"</span>
-                        <a
-                          href={project.demoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#22C55E] underline flex items-center gap-1 font-bold"
-                        >
-                          <span>Open Live $PEAK Site</span>
-                          <span className="material-symbols-outlined text-[14px]">open_in_new</span>
-                        </a>
-                      </div>
-                    </div>
-                  )}
-
-                  {project.id === 'ronnie-coin' && (
-                    <div className="space-y-4">
-                      <div className="text-xs text-white/70">
-                        Solana High-Performance Ecosystem Integration
-                      </div>
-                      <div className="grid grid-cols-3 gap-2 text-center">
-                        <div className="p-3 bg-white/5 rounded border border-white/10">
-                          <div className="text-[10px] text-white/50">NETWORK</div>
-                          <div className="text-xs text-[#22C55E] font-bold mt-1">Solana SPL</div>
-                        </div>
-                        <div className="p-3 bg-white/5 rounded border border-white/10">
-                          <div className="text-[10px] text-white/50">ROUTING</div>
-                          <div className="text-xs text-[#22C55E] font-bold mt-1">Raydium & DEX</div>
-                        </div>
-                        <div className="p-3 bg-white/5 rounded border border-white/10">
-                          <div className="text-[10px] text-white/50">SPEED</div>
-                          <div className="text-xs text-[#22C55E] font-bold mt-1">&lt; 400ms</div>
-                        </div>
-                      </div>
-                      <div className="p-3 bg-white/5 rounded text-xs text-white/80 flex items-center justify-between">
-                        <span>🦏 "Built Like a Rhino on Solana"</span>
-                        <a
-                          href={project.demoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#22C55E] underline flex items-center gap-1 font-bold"
-                        >
-                          <span>Open Live $RONNIE Site</span>
-                          <span className="material-symbols-outlined text-[14px]">open_in_new</span>
-                        </a>
-                      </div>
-                    </div>
-                  )}
-                </div>
-                <p className="text-xs text-[#747878] dark:text-[#9ca3af] font-['JetBrains_Mono']">
-                  * Click "Launch Live Site" to test full live animations, swap routing, interactive features, and responsive layouts.
-                </p>
+                ))}
               </div>
-            )}
+            </div>
+
+            {/* Key Features List */}
+            <div id="section-features">
+              <h4 className="font-['Space_Grotesk'] text-sm uppercase tracking-wider font-medium text-[#1b1c1a] dark:text-white mb-3">
+                {capabilitiesHeading[language] || 'Key Frontend Capabilities'}
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {displayFeatures.map((feature, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-start gap-2.5 p-3 bg-white dark:bg-[#18191e] border border-[#747878]/15 dark:border-white/10 rounded text-sm text-[#1b1c1a] dark:text-white"
+                  >
+                    <span className="material-symbols-outlined text-[#22C55E] text-[18px] shrink-0 mt-0.5">
+                      check_circle
+                    </span>
+                    <span>{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Tech Stack Chips */}
+            <div id="section-tech">
+              <h4 className="font-['Space_Grotesk'] text-sm uppercase tracking-wider font-medium text-[#1b1c1a] dark:text-white mb-2">
+                {techHeading[language] || 'Technologies Used'}
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag, idx) => (
+                  <span
+                    key={idx}
+                    className="px-3 py-1 bg-[#efeeea] dark:bg-[#212328] font-['JetBrains_Mono'] text-xs text-[#1b1c1a] dark:text-white rounded"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Modal Footer */}
           <div className="p-6 border-t border-[#747878]/15 dark:border-white/10 bg-[#f4f4f0] dark:bg-[#18191e] flex flex-wrap items-center justify-between gap-4">
             <div className="text-xs text-[#747878] dark:text-[#9ca3af] font-['JetBrains_Mono'] flex items-center gap-2">
-              <span>Designed & Developed by Senku</span>
+              <span>{language === 'ja' || language === 'zh' ? 'Senku (千空)' : 'Senku'}</span>
               <span>·</span>
               <span className="text-[#22C55E] font-semibold">
-                {readProgress >= 99 ? '100% Read' : `${readProgress}% Read`}
+                {getReadStr()}
               </span>
             </div>
             <div className="flex items-center gap-3">
@@ -456,27 +376,31 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   rel="noopener noreferrer"
                   className="px-4 py-2 bg-[#22C55E] hover:bg-[#16a34a] text-black text-xs font-['JetBrains_Mono'] uppercase rounded transition-colors flex items-center gap-1.5 font-bold cursor-pointer"
                 >
-                  <span>Launch Live Site</span>
+                  <span>{t.work.launchLive}</span>
                   <span className="material-symbols-outlined text-[15px]">open_in_new</span>
                 </a>
               )}
               <button
                 type="button"
-                onClick={onClose}
+                onClick={() => {
+                  sound.playClick(500);
+                  onClose();
+                }}
                 className="px-4 py-2 bg-transparent border border-[#747878]/30 dark:border-white/20 hover:border-[#1b1c1a] dark:hover:border-white text-xs font-['JetBrains_Mono'] uppercase text-[#1b1c1a] dark:text-white rounded transition-colors cursor-pointer"
               >
-                Close
+                {closeBtnText[language] || 'Close'}
               </button>
               <a
                 href="#contact"
                 onClick={() => {
+                  sound.playClick(800);
                   onClose();
                   const contactEl = document.getElementById('contact');
                   contactEl?.scrollIntoView({ behavior: 'smooth' });
                 }}
                 className="px-4 py-2 bg-[#000000] dark:bg-white hover:bg-[#22C55E] dark:hover:bg-[#22C55E] text-white dark:text-black dark:hover:text-black text-xs font-['JetBrains_Mono'] uppercase rounded transition-colors flex items-center gap-1.5 font-medium cursor-pointer"
               >
-                <span>Build Similar Project</span>
+                <span>{buildBtnText[language] || 'Build Similar Project'}</span>
                 <span className="material-symbols-outlined text-[15px]">arrow_outward</span>
               </a>
             </div>

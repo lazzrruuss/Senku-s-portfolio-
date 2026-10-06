@@ -1,8 +1,18 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 export const SkillsServices: React.FC = () => {
+  const { t } = useLanguage();
+
+  const services = t.skills.servicesList && t.skills.servicesList.length > 0
+    ? t.skills.servicesList.map((s, idx) => ({
+        ...s,
+        icon: PORTFOLIO_DATA.services[idx]?.icon || 'code',
+      }))
+    : PORTFOLIO_DATA.services;
+
   return (
     <section
       className="w-full px-6 lg:px-12 py-24 bg-[#f4f4f0] dark:bg-[#111216] border-b border-[#747878]/15 dark:border-white/10 transition-colors duration-200"
@@ -18,15 +28,15 @@ export const SkillsServices: React.FC = () => {
             transition={{ duration: 0.5 }}
           >
             <span className="font-['JetBrains_Mono'] text-xs text-[#006e2f] dark:text-[#4ade80] uppercase tracking-widest block mb-3 font-medium">
-              Services
+              {t.skills.badge}
             </span>
             <h2 className="font-['Space_Grotesk'] text-3xl sm:text-4xl font-medium text-[#1b1c1a] dark:text-white tracking-tight mb-8">
-              What I Do
+              {t.skills.servicesTitle}
             </h2>
           </motion.div>
 
           <div className="space-y-4">
-            {PORTFOLIO_DATA.services.map((service, idx) => (
+            {services.map((service, idx) => (
               <motion.div
                 key={service.id}
                 initial={{ opacity: 0, x: -24 }}
@@ -56,10 +66,10 @@ export const SkillsServices: React.FC = () => {
             transition={{ duration: 0.5 }}
           >
             <span className="font-['JetBrains_Mono'] text-xs text-[#006e2f] dark:text-[#4ade80] uppercase tracking-widest block mb-3 font-medium">
-              Expertise
+              {t.skills.badge}
             </span>
             <h2 className="font-['Space_Grotesk'] text-3xl sm:text-4xl font-medium text-[#1b1c1a] dark:text-white tracking-tight mb-8">
-              Tech Stack
+              {t.skills.techTitle}
             </h2>
           </motion.div>
 
@@ -93,7 +103,7 @@ export const SkillsServices: React.FC = () => {
             className="mt-8 p-6 bg-[#faf9f5] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10"
           >
             <div className="font-['JetBrains_Mono'] text-xs uppercase tracking-wider text-[#747878] dark:text-[#9ca3af] mb-3">
-              Web3 Ecosystem Familiarity
+              {t.skills.ecosystemTitle}
             </div>
             <div className="flex flex-wrap gap-2">
               {PORTFOLIO_DATA.ecosystemSkills.map((skill, idx) => (

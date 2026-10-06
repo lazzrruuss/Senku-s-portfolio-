@@ -2,11 +2,22 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 import { useNavigation } from '../context/NavigationContext';
+import { useLanguage } from '../context/LanguageContext';
 import { CyberMotionCanvas } from '../components/CyberMotionCanvas';
 import { MagneticButton } from '../components/MagneticButton';
+import { ProjectEstimator } from '../components/ProjectEstimator';
 
 export const SkillsPage: React.FC = () => {
   const { navigateTo } = useNavigation();
+  const { language, t } = useLanguage();
+
+  const isJa = language === 'ja';
+  const services = t.skills.servicesList && t.skills.servicesList.length > 0
+    ? t.skills.servicesList.map((s, idx) => ({
+        ...s,
+        icon: PORTFOLIO_DATA.services[idx]?.icon || 'code',
+      }))
+    : PORTFOLIO_DATA.services;
 
   return (
     <div className="relative w-full px-6 lg:px-12 py-16 sm:py-24 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200 min-h-[80vh] overflow-hidden">
@@ -26,19 +37,19 @@ export const SkillsPage: React.FC = () => {
               onClick={() => navigateTo('home')}
               className="hover:underline flex items-center gap-1 cursor-pointer text-[#747878] dark:text-[#9ca3af] hover:text-[#1b1c1a] dark:hover:text-white"
             >
-              <span>Home</span>
+              <span>{t.nav.home}</span>
             </button>
             <span className="text-[#747878]/50">/</span>
-            <span>Skills & Services</span>
+            <span>{t.skills.title}</span>
           </div>
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#747878]/15 dark:border-white/10">
             <div>
               <h1 className="font-['Space_Grotesk'] text-4xl sm:text-5xl lg:text-6xl font-medium text-[#1b1c1a] dark:text-white tracking-tight">
-                Skills & Capabilities
+                {t.skills.title}
               </h1>
               <p className="font-['Inter'] text-base sm:text-lg text-[#444748] dark:text-[#d1d5db] max-w-xl mt-3 leading-relaxed">
-                Full-spectrum technical capabilities from creative Web3 frontends and DEX integrations to Solidity smart contract development and interactive motion systems.
+                {t.skills.subtitle}
               </p>
             </div>
 
@@ -46,7 +57,7 @@ export const SkillsPage: React.FC = () => {
               onClick={() => navigateTo('contact')}
               className="px-6 py-3.5 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium tracking-wide transition-all duration-200 rounded flex items-center gap-2 shadow-sm w-fit"
             >
-              <span>Hire for a Project</span>
+              <span>{t.skills.hireCta}</span>
               <span className="material-symbols-outlined text-[16px]">arrow_outward</span>
             </MagneticButton>
           </div>
@@ -58,15 +69,15 @@ export const SkillsPage: React.FC = () => {
           <div>
             <div className="mb-6">
               <span className="font-['JetBrains_Mono'] text-xs text-[#006e2f] dark:text-[#4ade80] uppercase tracking-widest block mb-2 font-medium">
-                Offerings
+                {t.skills.badge}
               </span>
               <h2 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-medium text-[#1b1c1a] dark:text-white tracking-tight">
-                What I Build
+                {t.skills.servicesTitle}
               </h2>
             </div>
 
             <div className="space-y-4">
-              {PORTFOLIO_DATA.services.map((service, idx) => (
+              {services.map((service, idx) => (
                 <motion.div
                   key={service.id}
                   initial={{ opacity: 0, x: -20 }}
@@ -91,10 +102,10 @@ export const SkillsPage: React.FC = () => {
           <div>
             <div className="mb-6">
               <span className="font-['JetBrains_Mono'] text-xs text-[#006e2f] dark:text-[#4ade80] uppercase tracking-widest block mb-2 font-medium">
-                Technologies
+                {t.skills.badge}
               </span>
               <h2 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-medium text-[#1b1c1a] dark:text-white tracking-tight">
-                Core Tech Stack
+                {t.skills.techTitle}
               </h2>
             </div>
 
@@ -128,7 +139,7 @@ export const SkillsPage: React.FC = () => {
               className="mt-8 p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10 rounded-sm"
             >
               <div className="font-['JetBrains_Mono'] text-xs uppercase tracking-wider text-[#747878] dark:text-[#9ca3af] mb-3">
-                Web3 Ecosystem & Integration Familiarity
+                {t.skills.ecosystemTitle}
               </div>
               <div className="flex flex-wrap gap-2">
                 {PORTFOLIO_DATA.ecosystemSkills.map((skill, idx) => (
@@ -144,6 +155,11 @@ export const SkillsPage: React.FC = () => {
           </div>
         </div>
 
+        {/* Interactive Scope & Price Estimator */}
+        <div className="mb-20">
+          <ProjectEstimator />
+        </div>
+
         {/* Bottom CTA Row */}
         <div className="pt-8 border-t border-[#747878]/15 dark:border-white/10 flex flex-wrap items-center justify-between gap-4">
           <button
@@ -151,14 +167,14 @@ export const SkillsPage: React.FC = () => {
             className="flex items-center gap-2 font-['Inter'] text-sm font-medium text-[#1b1c1a] dark:text-white hover:text-[#22C55E] dark:hover:text-[#22C55E] transition-colors cursor-pointer"
           >
             <span className="material-symbols-outlined text-[16px]">arrow_back</span>
-            <span>About Senku</span>
+            <span>{t.nav.about}</span>
           </button>
 
           <MagneticButton
             onClick={() => navigateTo('contact')}
             className="px-6 py-3 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium transition-all duration-200 rounded flex items-center gap-2 shadow-sm"
           >
-            <span>Proceed to Contact</span>
+            <span>{t.nav.contact}</span>
             <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
           </MagneticButton>
         </div>

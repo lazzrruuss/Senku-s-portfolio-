@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
+import { motion, useMotionValue, useSpring, useTransform, HTMLMotionProps } from 'motion/react';
+import { sound } from '../utils/soundEffects';
 
-interface MagneticButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface MagneticButtonProps extends HTMLMotionProps<'button'> {
   children: React.ReactNode;
   className?: string;
   strength?: number;
@@ -26,6 +27,10 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
   const textX = useTransform(smoothX, (v) => v * 0.4);
   const textY = useTransform(smoothY, (v) => v * 0.4);
 
+  const handleMouseEnter = () => {
+    sound.playHover();
+  };
+
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!ref.current) return;
     const { clientX, clientY } = e;
@@ -41,14 +46,20 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
     y.set(0);
   };
 
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    sound.playClick(850);
+    onClick?.(e);
+  };
+
   return (
     <motion.button
       ref={ref}
       style={{ x: smoothX, y: smoothY }}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       whileTap={{ scale: 0.96 }}
-      onClick={onClick}
+      onClick={handleClick}
       className={`relative inline-flex items-center justify-center cursor-pointer transition-colors ${className}`}
       {...rest}
     >

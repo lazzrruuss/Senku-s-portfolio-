@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React from 'react';
+import { motion } from 'motion/react';
 import { PORTFOLIO_DATA, Project } from '../data/portfolioData';
 import { ProjectCard } from '../components/ProjectCard';
 import { useNavigation } from '../context/NavigationContext';
+import { useLanguage } from '../context/LanguageContext';
 import { CyberMotionCanvas } from '../components/CyberMotionCanvas';
-import { InteractiveMotionVisualizer } from '../components/InteractiveMotionVisualizer';
 import { MagneticButton } from '../components/MagneticButton';
 
 interface WorkPageProps {
@@ -13,7 +13,7 @@ interface WorkPageProps {
 
 export const WorkPage: React.FC<WorkPageProps> = ({ onOpenProject }) => {
   const { navigateTo } = useNavigation();
-  const [showEngineDemo, setShowEngineDemo] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <div className="relative w-full px-6 lg:px-12 py-16 sm:py-24 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200 min-h-[80vh] overflow-hidden">
@@ -33,55 +33,29 @@ export const WorkPage: React.FC<WorkPageProps> = ({ onOpenProject }) => {
               onClick={() => navigateTo('home')}
               className="hover:underline flex items-center gap-1 cursor-pointer text-[#747878] dark:text-[#9ca3af] hover:text-[#1b1c1a] dark:hover:text-white"
             >
-              <span>Home</span>
+              <span>{t.nav.home}</span>
             </button>
             <span className="text-[#747878]/50">/</span>
-            <span>Selected Work</span>
+            <span>{t.work.title}</span>
           </div>
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#747878]/15 dark:border-white/10">
             <div>
               <h1 className="font-['Space_Grotesk'] text-4xl sm:text-5xl lg:text-6xl font-medium text-[#1b1c1a] dark:text-white tracking-tight">
-                Selected Work
+                {t.work.title}
               </h1>
               <p className="font-['Inter'] text-base sm:text-lg text-[#444748] dark:text-[#d1d5db] max-w-xl mt-3 leading-relaxed">
-                Live client builds, memecoin portals, and production Web3 applications designed and developed by Senku.
+                {t.work.subtitle}
               </p>
             </div>
 
             <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={() => setShowEngineDemo(!showEngineDemo)}
-                className="px-4 py-2 rounded-lg bg-[#efeeea] dark:bg-[#16171c] border border-[#747878]/20 dark:border-white/10 text-xs font-['JetBrains_Mono'] text-[#1b1c1a] dark:text-white hover:border-[#22C55E] flex items-center gap-2 cursor-pointer transition-all"
-              >
-                <span className="material-symbols-outlined text-[16px] text-[#22C55E]">
-                  {showEngineDemo ? 'visibility_off' : 'animation'}
-                </span>
-                <span>{showEngineDemo ? 'Hide Motion Engine' : 'Live Motion Engine Demo'}</span>
-              </button>
+              <span className="px-3.5 py-1.5 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/20 text-[#006e2f] dark:text-[#4ade80] font-['JetBrains_Mono'] text-xs font-semibold">
+                {t.work.deployments}
+              </span>
             </div>
           </div>
         </motion.div>
-
-        {/* Collapsible Motion Engine Showcase */}
-        <AnimatePresence>
-          {showEngineDemo && (
-            <motion.div
-              initial={{ opacity: 0, height: 0, marginBottom: 0 }}
-              animate={{ opacity: 1, height: 'auto', marginBottom: 48 }}
-              exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-              transition={{ duration: 0.4 }}
-              className="overflow-hidden"
-            >
-              <div className="p-1 mb-2 font-['JetBrains_Mono'] text-xs text-[#747878] dark:text-[#9ca3af] flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-ping" />
-                <span>INTERACTIVE MEMPOOL & TELEMETRY MOTION GRAPHIC COMPONENT</span>
-              </div>
-              <InteractiveMotionVisualizer />
-            </motion.div>
-          )}
-        </AnimatePresence>
 
         {/* Projects Grid with 3D Tilt and Spotlight */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
@@ -108,13 +82,13 @@ export const WorkPage: React.FC<WorkPageProps> = ({ onOpenProject }) => {
 
           <div>
             <span className="font-['JetBrains_Mono'] text-xs text-[#006e2f] dark:text-[#4ade80] uppercase tracking-widest block mb-2 font-medium">
-              Need A Custom Launch?
+              {t.work.badge}
             </span>
             <h2 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-medium text-[#1b1c1a] dark:text-white tracking-tight">
-              Have a token, protocol, or dApp to build?
+              {t.work.needLaunch}
             </h2>
             <p className="font-['Inter'] text-sm sm:text-base text-[#444748] dark:text-[#d1d5db] max-w-lg mt-2">
-              From viral memecoin launch portals to decentralized dashboards with live swaps and custom motion telemetry.
+              {t.work.needLaunchSub}
             </p>
           </div>
 
@@ -123,14 +97,14 @@ export const WorkPage: React.FC<WorkPageProps> = ({ onOpenProject }) => {
               onClick={() => navigateTo('contact')}
               className="px-6 py-3.5 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium tracking-wide transition-all duration-200 rounded flex items-center gap-2 shadow-sm"
             >
-              <span>Start Project Brief</span>
+              <span>{t.work.startBrief}</span>
               <span className="material-symbols-outlined text-[16px]">arrow_outward</span>
             </MagneticButton>
             <MagneticButton
               onClick={() => navigateTo('skills')}
               className="px-6 py-3.5 bg-transparent border border-[#747878]/30 dark:border-white/20 hover:border-[#1b1c1a] dark:hover:border-white text-[#1b1c1a] dark:text-white font-['Inter'] text-sm font-medium tracking-wide transition-all duration-200 rounded"
             >
-              <span>Explore Services</span>
+              <span>{t.work.exploreServices}</span>
             </MagneticButton>
           </div>
         </motion.div>
