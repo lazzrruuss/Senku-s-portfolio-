@@ -2,13 +2,18 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 import { useNavigation } from '../context/NavigationContext';
+import { CyberMotionCanvas } from '../components/CyberMotionCanvas';
+import { MagneticButton } from '../components/MagneticButton';
 
 export const AboutPage: React.FC = () => {
   const { navigateTo } = useNavigation();
 
   return (
-    <div className="w-full px-6 lg:px-12 py-16 sm:py-24 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200 min-h-[80vh]">
-      <div className="max-w-4xl mx-auto">
+    <div className="relative w-full px-6 lg:px-12 py-16 sm:py-24 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200 min-h-[80vh] overflow-hidden">
+      {/* Ambient background particles */}
+      <CyberMotionCanvas density="compact" interactive={true} />
+
+      <div className="relative z-10 max-w-4xl mx-auto">
         {/* Breadcrumb */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -47,7 +52,7 @@ export const AboutPage: React.FC = () => {
           ))}
         </motion.div>
 
-        {/* Quick Stats Grid */}
+        {/* Quick Stats Grid with hover motion */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -55,22 +60,22 @@ export const AboutPage: React.FC = () => {
           transition={{ duration: 0.5 }}
           className="grid grid-cols-2 sm:grid-cols-4 gap-4 my-12"
         >
-          <div className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10">
+          <motion.div whileHover={{ y: -4 }} className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10 hover:border-[#22C55E]/40 transition-colors">
             <div className="text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af] uppercase">Role</div>
             <div className="text-sm sm:text-base font-bold text-[#1b1c1a] dark:text-white mt-1">Frontend & Web3</div>
-          </div>
-          <div className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10">
+          </motion.div>
+          <motion.div whileHover={{ y: -4 }} className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10 hover:border-[#22C55E]/40 transition-colors">
             <div className="text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af] uppercase">Status</div>
             <div className="text-sm sm:text-base font-bold text-[#22C55E] mt-1">Available Now</div>
-          </div>
-          <div className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10">
+          </motion.div>
+          <motion.div whileHover={{ y: -4 }} className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10 hover:border-[#22C55E]/40 transition-colors">
             <div className="text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af] uppercase">Speed</div>
             <div className="text-sm sm:text-base font-bold text-[#1b1c1a] dark:text-white mt-1">24–48h Launch</div>
-          </div>
-          <div className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10">
-            <div className="text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af] uppercase">Design</div>
-            <div className="text-sm sm:text-base font-bold text-[#1b1c1a] dark:text-white mt-1">Swiss High-End</div>
-          </div>
+          </motion.div>
+          <motion.div whileHover={{ y: -4 }} className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10 hover:border-[#22C55E]/40 transition-colors">
+            <div className="text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af] uppercase">Motion</div>
+            <div className="text-sm sm:text-base font-bold text-[#22C55E] mt-1">60FPS Canvas</div>
+          </motion.div>
         </motion.div>
 
         {/* Code Principles */}
@@ -92,8 +97,8 @@ export const AboutPage: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                whileHover={{ y: -4 }}
-                className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10 rounded-sm hover:border-[#1b1c1a]/30 dark:hover:border-white/30 transition-colors"
+                whileHover={{ y: -5 }}
+                className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10 rounded-sm hover:border-[#22C55E]/50 transition-all"
               >
                 <div className="font-['JetBrains_Mono'] text-xs text-[#006e2f] dark:text-[#4ade80] uppercase mb-2 font-medium">
                   0{idx + 1} // Principle
@@ -119,13 +124,13 @@ export const AboutPage: React.FC = () => {
             <span>Explore Work</span>
           </button>
 
-          <button
+          <MagneticButton
             onClick={() => navigateTo('skills')}
-            className="px-6 py-3 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium transition-all duration-200 rounded flex items-center gap-2 cursor-pointer shadow-sm"
+            className="px-6 py-3 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium transition-all duration-200 rounded flex items-center gap-2 shadow-sm"
           >
             <span>View Skills & Stack</span>
             <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-          </button>
+          </MagneticButton>
         </div>
       </div>
     </div>

@@ -1,8 +1,11 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { PORTFOLIO_DATA, Project } from '../data/portfolioData';
 import { ProjectCard } from '../components/ProjectCard';
 import { useNavigation } from '../context/NavigationContext';
+import { CyberMotionCanvas } from '../components/CyberMotionCanvas';
+import { InteractiveMotionVisualizer } from '../components/InteractiveMotionVisualizer';
+import { MagneticButton } from '../components/MagneticButton';
 
 interface WorkPageProps {
   onOpenProject: (project: Project) => void;
@@ -10,10 +13,14 @@ interface WorkPageProps {
 
 export const WorkPage: React.FC<WorkPageProps> = ({ onOpenProject }) => {
   const { navigateTo } = useNavigation();
+  const [showEngineDemo, setShowEngineDemo] = useState(false);
 
   return (
-    <div className="w-full px-6 lg:px-12 py-16 sm:py-24 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200 min-h-[80vh]">
-      <div className="max-w-7xl mx-auto">
+    <div className="relative w-full px-6 lg:px-12 py-16 sm:py-24 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200 min-h-[80vh] overflow-hidden">
+      {/* Background Cyber Motion Canvas */}
+      <CyberMotionCanvas density="compact" interactive={true} />
+
+      <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header Breadcrumb & Title */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -42,15 +49,41 @@ export const WorkPage: React.FC<WorkPageProps> = ({ onOpenProject }) => {
               </p>
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="px-4 py-2 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/20 text-[#006e2f] dark:text-[#4ade80] font-['JetBrains_Mono'] text-xs font-medium">
-                3 Production Deployments
-              </div>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setShowEngineDemo(!showEngineDemo)}
+                className="px-4 py-2 rounded-lg bg-[#efeeea] dark:bg-[#16171c] border border-[#747878]/20 dark:border-white/10 text-xs font-['JetBrains_Mono'] text-[#1b1c1a] dark:text-white hover:border-[#22C55E] flex items-center gap-2 cursor-pointer transition-all"
+              >
+                <span className="material-symbols-outlined text-[16px] text-[#22C55E]">
+                  {showEngineDemo ? 'visibility_off' : 'animation'}
+                </span>
+                <span>{showEngineDemo ? 'Hide Motion Engine' : 'Live Motion Engine Demo'}</span>
+              </button>
             </div>
           </div>
         </motion.div>
 
-        {/* Projects Grid */}
+        {/* Collapsible Motion Engine Showcase */}
+        <AnimatePresence>
+          {showEngineDemo && (
+            <motion.div
+              initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+              animate={{ opacity: 1, height: 'auto', marginBottom: 48 }}
+              exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+              transition={{ duration: 0.4 }}
+              className="overflow-hidden"
+            >
+              <div className="p-1 mb-2 font-['JetBrains_Mono'] text-xs text-[#747878] dark:text-[#9ca3af] flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-ping" />
+                <span>INTERACTIVE MEMPOOL & TELEMETRY MOTION GRAPHIC COMPONENT</span>
+              </div>
+              <InteractiveMotionVisualizer />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Projects Grid with 3D Tilt and Spotlight */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {PORTFOLIO_DATA.projects.map((project, index) => (
             <ProjectCard
@@ -68,8 +101,11 @@ export const WorkPage: React.FC<WorkPageProps> = ({ onOpenProject }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="p-8 sm:p-12 rounded-xl bg-[#f4f4f0] dark:bg-[#111216] border border-[#747878]/15 dark:border-white/10 flex flex-col md:flex-row items-center justify-between gap-8"
+          className="relative p-8 sm:p-12 rounded-xl bg-[#f4f4f0] dark:bg-[#111216] border border-[#747878]/15 dark:border-white/10 flex flex-col md:flex-row items-center justify-between gap-8 overflow-hidden group"
         >
+          {/* Subtle scanning glow line */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#22C55E] to-transparent opacity-40 group-hover:opacity-100 transition-opacity" />
+
           <div>
             <span className="font-['JetBrains_Mono'] text-xs text-[#006e2f] dark:text-[#4ade80] uppercase tracking-widest block mb-2 font-medium">
               Need A Custom Launch?
@@ -78,24 +114,24 @@ export const WorkPage: React.FC<WorkPageProps> = ({ onOpenProject }) => {
               Have a token, protocol, or dApp to build?
             </h2>
             <p className="font-['Inter'] text-sm sm:text-base text-[#444748] dark:text-[#d1d5db] max-w-lg mt-2">
-              From memecoin launch portals to decentralized dashboards with live swaps and telemetry.
+              From viral memecoin launch portals to decentralized dashboards with live swaps and custom motion telemetry.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <button
+            <MagneticButton
               onClick={() => navigateTo('contact')}
-              className="px-6 py-3.5 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium tracking-wide transition-all duration-200 rounded flex items-center gap-2 cursor-pointer shadow-sm"
+              className="px-6 py-3.5 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium tracking-wide transition-all duration-200 rounded flex items-center gap-2 shadow-sm"
             >
               <span>Start Project Brief</span>
               <span className="material-symbols-outlined text-[16px]">arrow_outward</span>
-            </button>
-            <button
+            </MagneticButton>
+            <MagneticButton
               onClick={() => navigateTo('skills')}
-              className="px-6 py-3.5 bg-transparent border border-[#747878]/30 dark:border-white/20 hover:border-[#1b1c1a] dark:hover:border-white text-[#1b1c1a] dark:text-white font-['Inter'] text-sm font-medium tracking-wide transition-all duration-200 rounded cursor-pointer"
+              className="px-6 py-3.5 bg-transparent border border-[#747878]/30 dark:border-white/20 hover:border-[#1b1c1a] dark:hover:border-white text-[#1b1c1a] dark:text-white font-['Inter'] text-sm font-medium tracking-wide transition-all duration-200 rounded"
             >
               <span>Explore Services</span>
-            </button>
+            </MagneticButton>
           </div>
         </motion.div>
       </div>

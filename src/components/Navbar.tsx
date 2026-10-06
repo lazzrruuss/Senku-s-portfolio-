@@ -49,11 +49,13 @@ export const Navbar: React.FC<NavbarProps> = () => {
           : 'bg-[#faf9f5]/90 dark:bg-[#090a0c]/90 backdrop-blur-md border-b border-[#747878]/10 dark:border-white/10'
       }`}
     >
-      {/* Scroll Progress Bar */}
-      <motion.div
-        style={{ scaleX }}
-        className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#22C55E] origin-left pointer-events-none z-50"
-      />
+      {/* Scroll Progress Bar at the top of the viewport */}
+      <div className="fixed top-0 left-0 right-0 h-[3px] bg-black/5 dark:bg-white/5 pointer-events-none z-50">
+        <motion.div
+          style={{ scaleX }}
+          className="h-full bg-gradient-to-r from-[#22C55E] via-[#4ade80] to-[#22C55E] origin-left shadow-[0_0_8px_rgba(34,197,94,0.7)]"
+        />
+      </div>
 
       <div className="h-20 max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
         {/* Brand & Availability Status */}

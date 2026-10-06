@@ -1,5 +1,6 @@
 import React from 'react';
 import { Hero } from '../components/Hero';
+import { KineticTicker } from '../components/KineticTicker';
 import { SelectedWork } from '../components/SelectedWork';
 import { About } from '../components/About';
 import { SkillsServices } from '../components/SkillsServices';
@@ -18,6 +19,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   return (
     <>
       <Hero onSelectProject={onSelectProjectById} />
+      <KineticTicker />
       <SelectedWork onOpenProject={onOpenProject} />
       <About />
       <SkillsServices />

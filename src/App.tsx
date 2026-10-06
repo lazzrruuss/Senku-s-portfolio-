@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { ThemeProvider } from './context/ThemeContext';
 import { NavigationProvider, useNavigation } from './context/NavigationContext';
 import { Navbar } from './components/Navbar';
@@ -59,9 +60,20 @@ function PortfolioApp() {
       {/* Top Fixed Header with multi-page navigation */}
       <Navbar />
 
-      {/* Main Content Area */}
-      <main className="w-full pt-20 bg-[#faf9f5] dark:bg-[#090a0c] flex-grow transition-colors duration-200">
-        {renderCurrentPage()}
+      {/* Main Content Area with buttery-smooth kinetic page transitions */}
+      <main className="w-full pt-20 bg-[#faf9f5] dark:bg-[#090a0c] flex-grow transition-colors duration-200 overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentPage}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="w-full"
+          >
+            {renderCurrentPage()}
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       {/* Footer */}

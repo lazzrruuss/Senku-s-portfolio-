@@ -2,13 +2,18 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 import { useNavigation } from '../context/NavigationContext';
+import { CyberMotionCanvas } from '../components/CyberMotionCanvas';
+import { MagneticButton } from '../components/MagneticButton';
 
 export const SkillsPage: React.FC = () => {
   const { navigateTo } = useNavigation();
 
   return (
-    <div className="w-full px-6 lg:px-12 py-16 sm:py-24 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200 min-h-[80vh]">
-      <div className="max-w-7xl mx-auto">
+    <div className="relative w-full px-6 lg:px-12 py-16 sm:py-24 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200 min-h-[80vh] overflow-hidden">
+      {/* Ambient background particles */}
+      <CyberMotionCanvas density="compact" interactive={true} />
+
+      <div className="relative z-10 max-w-7xl mx-auto">
         {/* Breadcrumb */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -33,17 +38,17 @@ export const SkillsPage: React.FC = () => {
                 Skills & Capabilities
               </h1>
               <p className="font-['Inter'] text-base sm:text-lg text-[#444748] dark:text-[#d1d5db] max-w-xl mt-3 leading-relaxed">
-                Full-spectrum technical capabilities from creative Web3 frontends and DEX integrations to Solidity smart contract development.
+                Full-spectrum technical capabilities from creative Web3 frontends and DEX integrations to Solidity smart contract development and interactive motion systems.
               </p>
             </div>
 
-            <button
+            <MagneticButton
               onClick={() => navigateTo('contact')}
-              className="px-6 py-3.5 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium tracking-wide transition-all duration-200 rounded flex items-center gap-2 cursor-pointer shadow-sm w-fit"
+              className="px-6 py-3.5 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium tracking-wide transition-all duration-200 rounded flex items-center gap-2 shadow-sm w-fit"
             >
               <span>Hire for a Project</span>
               <span className="material-symbols-outlined text-[16px]">arrow_outward</span>
-            </button>
+            </MagneticButton>
           </div>
         </motion.div>
 
@@ -68,8 +73,8 @@ export const SkillsPage: React.FC = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.45, delay: idx * 0.08 }}
-                  whileHover={{ x: 6 }}
-                  className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] flex items-center gap-4 border border-[#747878]/15 dark:border-white/10 hover:border-[#1b1c1a]/40 dark:hover:border-[#22C55E]/50 transition-colors duration-200 group cursor-default rounded-sm"
+                  whileHover={{ x: 8 }}
+                  className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] flex items-center gap-4 border border-[#747878]/15 dark:border-white/10 hover:border-[#22C55E]/60 transition-colors duration-200 group cursor-default rounded-sm"
                 >
                   <span className="material-symbols-outlined text-[#006e2f] dark:text-[#4ade80] group-hover:text-[#22C55E] dark:group-hover:text-[#22C55E] transition-colors text-[24px]">
                     {service.icon}
@@ -101,8 +106,8 @@ export const SkillsPage: React.FC = () => {
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.06 }}
-                  whileHover={{ y: -4 }}
-                  className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] flex flex-col items-center justify-center text-center gap-2 border border-[#747878]/15 dark:border-white/10 hover:border-[#1b1c1a]/40 dark:hover:border-[#22C55E]/50 transition-colors duration-200 group cursor-default rounded-sm"
+                  whileHover={{ y: -5, borderColor: '#22c55e' }}
+                  className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] flex flex-col items-center justify-center text-center gap-2 border border-[#747878]/15 dark:border-white/10 transition-all duration-200 group cursor-default rounded-sm"
                 >
                   <span className="font-['JetBrains_Mono'] text-sm sm:text-base text-[#1b1c1a] dark:text-white font-medium group-hover:text-[#22C55E] transition-colors">
                     {tech.name}
@@ -129,7 +134,7 @@ export const SkillsPage: React.FC = () => {
                 {PORTFOLIO_DATA.ecosystemSkills.map((skill, idx) => (
                   <span
                     key={idx}
-                    className="px-2.5 py-1 bg-[#faf9f5] dark:bg-[#212328] text-[#1b1c1a] dark:text-white font-['JetBrains_Mono'] text-xs border border-[#747878]/10 dark:border-white/10 rounded"
+                    className="px-2.5 py-1 bg-[#faf9f5] dark:bg-[#212328] text-[#1b1c1a] dark:text-white font-['JetBrains_Mono'] text-xs border border-[#747878]/10 dark:border-white/10 rounded hover:border-[#22C55E] transition-colors"
                   >
                     {skill}
                   </span>
@@ -149,13 +154,13 @@ export const SkillsPage: React.FC = () => {
             <span>About Senku</span>
           </button>
 
-          <button
+          <MagneticButton
             onClick={() => navigateTo('contact')}
-            className="px-6 py-3 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium transition-all duration-200 rounded flex items-center gap-2 cursor-pointer shadow-sm"
+            className="px-6 py-3 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium transition-all duration-200 rounded flex items-center gap-2 shadow-sm"
           >
             <span>Proceed to Contact</span>
             <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-          </button>
+          </MagneticButton>
         </div>
       </div>
     </div>

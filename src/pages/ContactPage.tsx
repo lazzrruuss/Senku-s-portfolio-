@@ -2,13 +2,17 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Contact } from '../components/Contact';
 import { useNavigation } from '../context/NavigationContext';
+import { CyberMotionCanvas } from '../components/CyberMotionCanvas';
 
 export const ContactPage: React.FC = () => {
   const { navigateTo } = useNavigation();
 
   return (
-    <div className="w-full px-6 lg:px-12 py-16 sm:py-24 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200 min-h-[80vh]">
-      <div className="max-w-4xl mx-auto">
+    <div className="relative w-full px-6 lg:px-12 py-16 sm:py-24 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200 min-h-[80vh] overflow-hidden">
+      {/* Background Cyber Motion Canvas */}
+      <CyberMotionCanvas density="compact" interactive={true} />
+
+      <div className="relative z-10 max-w-4xl mx-auto">
         {/* Breadcrumb */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
