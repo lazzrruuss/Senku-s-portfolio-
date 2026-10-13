@@ -24,7 +24,7 @@ export const Hero: React.FC<HeroProps> = ({ onSelectProject }) => {
   };
 
   return (
-    <section className="relative w-full px-6 lg:px-12 pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden border-b border-[#747878]/15 dark:border-white/10 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200">
+    <section className="relative w-full px-6 lg:px-12 pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden border-b border-[#747878]/15 dark:border-white/10 bg-transparent transition-colors duration-200">
       {/* Interactive Cyber Motion Canvas Background */}
       <CyberMotionCanvas density="normal" interactive={true} />
 
@@ -141,45 +141,47 @@ export const Hero: React.FC<HeroProps> = ({ onSelectProject }) => {
 
           {/* Layer 1: Base Card (Live Project Preview - RONNIE Solana Memecoin) */}
           <motion.div
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
             whileHover={{ scale: 1.02 }}
             onClick={() => {
               simulateTpsPulse();
               sound.playClick(900);
               if (onSelectProject) onSelectProject('ronnie-coin');
             }}
-            className="absolute w-[88%] sm:w-[380px] bg-[#111111] dark:bg-[#14151a] text-white p-5 rounded-lg shadow-2xl border border-white/10 dark:border-white/20 transform -translate-x-4 sm:-translate-x-6 -translate-y-8 animate-float-slow z-10 cursor-pointer hover:border-[#22C55E]/50 transition-all duration-300 group"
+            className="absolute w-[88%] sm:w-[380px] glass-panel-elevated p-5 rounded-2xl shadow-2xl transform -translate-x-4 sm:-translate-x-6 -translate-y-8 z-10 cursor-pointer hover:border-[#22C55E]/50 transition-all duration-300 group overflow-hidden"
             title="Click to view RONNIE ($RONNIE) project details"
           >
-            <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
+            <div className="flex items-center justify-between pb-3 border-b border-black/10 dark:border-white/10 mb-3">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#22C55E]"></span>
-                <span className="font-['JetBrains_Mono'] text-xs tracking-wider text-white/90 font-medium">
+                <span className="font-['JetBrains_Mono'] text-xs tracking-wider text-[#1b1c1a] dark:text-white font-medium">
                   RONNIE ($RONNIE) // SOLANA
                 </span>
               </div>
-              <span className="font-['JetBrains_Mono'] text-[10px] text-[#22C55E] bg-[#22C55E]/15 px-2 py-0.5 rounded font-medium">
+              <span className="font-['JetBrains_Mono'] text-[10px] text-[#22C55E] bg-[#22C55E]/15 border border-[#22C55E]/30 px-2 py-0.5 rounded font-medium">
                 LIVE
               </span>
             </div>
 
             <div className="space-y-2 mb-4">
-              <div className="h-2 w-3/4 bg-white/25 rounded"></div>
-              <div className="h-2 w-1/2 bg-white/15 rounded"></div>
+              <div className="h-2 w-3/4 bg-black/10 dark:bg-white/20 rounded"></div>
+              <div className="h-2 w-1/2 bg-black/5 dark:bg-white/10 rounded"></div>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-white/10">
-              <div className="bg-white/5 p-2 rounded group-hover:bg-white/10 transition-colors">
-                <div className="text-[10px] text-white/50 font-['JetBrains_Mono']">CHAIN</div>
+            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-black/10 dark:border-white/10">
+              <div className="glass-pill p-2 rounded-lg group-hover:border-[#22C55E]/40 transition-colors">
+                <div className="text-[10px] text-[#747878] dark:text-white/50 font-['JetBrains_Mono']">CHAIN</div>
                 <div className="text-xs font-bold text-[#22C55E]">
                   Solana SPL
                 </div>
               </div>
-              <div className="bg-white/5 p-2 rounded group-hover:bg-white/10 transition-colors">
-                <div className="text-[10px] text-white/50 font-['JetBrains_Mono']">SWAP</div>
-                <div className="text-xs font-bold text-white">Raydium</div>
+              <div className="glass-pill p-2 rounded-lg group-hover:border-[#22C55E]/40 transition-colors">
+                <div className="text-[10px] text-[#747878] dark:text-white/50 font-['JetBrains_Mono']">SWAP</div>
+                <div className="text-xs font-bold text-[#1b1c1a] dark:text-white">Raydium</div>
               </div>
-              <div className="bg-white/5 p-2 rounded group-hover:bg-white/10 transition-colors">
-                <div className="text-[10px] text-white/50 font-['JetBrains_Mono']">GAS</div>
+              <div className="glass-pill p-2 rounded-lg group-hover:border-[#22C55E]/40 transition-colors">
+                <div className="text-[10px] text-[#747878] dark:text-white/50 font-['JetBrains_Mono']">GAS</div>
                 <div className="text-xs font-bold text-[#22C55E]">&lt; $0.001</div>
               </div>
             </div>
@@ -187,6 +189,8 @@ export const Hero: React.FC<HeroProps> = ({ onSelectProject }) => {
 
           {/* Layer 2: Middle Card (Live Memecoin Preview - PEPEAK $PEAK) */}
           <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
             whileHover={{ scale: 1.02 }}
             onClick={() => {
               setIsCopiedToken(true);
@@ -194,7 +198,7 @@ export const Hero: React.FC<HeroProps> = ({ onSelectProject }) => {
               setTimeout(() => setIsCopiedToken(false), 2000);
               if (onSelectProject) onSelectProject('pepeak-memecoin');
             }}
-            className="absolute w-[84%] sm:w-[320px] bg-[#f4f4f0] dark:bg-[#1a1b22] text-[#1b1c1a] dark:text-white p-5 rounded-lg shadow-xl border border-[#747878]/30 dark:border-white/20 transform translate-x-6 sm:translate-x-10 translate-y-6 animate-float-fast z-20 cursor-pointer hover:border-[#1b1c1a] dark:hover:border-[#22C55E] transition-all duration-300"
+            className="absolute w-[84%] sm:w-[320px] glass-card text-[#1b1c1a] dark:text-white p-5 rounded-2xl shadow-xl transform translate-x-6 sm:translate-x-10 translate-y-6 z-20 cursor-pointer hover:border-[#22C55E] transition-all duration-300 overflow-hidden"
             title="Click to view PEPEAK ($PEAK) project details"
           >
             <div className="flex items-center justify-between pb-3 border-b border-[#747878]/15 dark:border-white/10 mb-3">
@@ -207,14 +211,14 @@ export const Hero: React.FC<HeroProps> = ({ onSelectProject }) => {
               <span className="material-symbols-outlined text-[16px] text-[#006e2f] dark:text-[#4ade80]">trending_up</span>
             </div>
 
-            <div className="flex justify-between items-center bg-[#faf9f5] dark:bg-[#111216] p-3 rounded mb-3 border border-[#747878]/15 dark:border-white/10">
+            <div className="flex justify-between items-center glass-pill p-3 rounded-lg mb-3">
               <div>
                 <div className="text-[10px] text-[#444748] dark:text-[#9ca3af] font-['JetBrains_Mono'] uppercase">
                   Summit Culture
                 </div>
                 <div className="text-sm font-bold text-[#1b1c1a] dark:text-white">100% Fair Launch</div>
               </div>
-              <span className="text-xs font-bold text-[#22C55E] bg-[#22C55E]/15 px-2.5 py-1 rounded-full">
+              <span className="text-xs font-bold text-[#22C55E] bg-[#22C55E]/15 px-2.5 py-1 rounded-full border border-[#22C55E]/30">
                 0% TAX
               </span>
             </div>
@@ -230,7 +234,7 @@ export const Hero: React.FC<HeroProps> = ({ onSelectProject }) => {
           </motion.div>
 
           {/* Layer 3: Top Accent Badge Card */}
-          <div className="absolute -top-3 right-0 sm:right-2 bg-[#000000] dark:bg-white text-white dark:text-black px-4 py-2.5 rounded shadow-lg z-30 flex items-center gap-2 font-['JetBrains_Mono'] text-xs border border-white/10 dark:border-white/20">
+          <div className="absolute -top-3 right-0 sm:right-2 glass-pill px-4 py-2 rounded-full shadow-lg z-30 flex items-center gap-2 font-['JetBrains_Mono'] text-xs text-[#1b1c1a] dark:text-white">
             <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-ping"></span>
             <span className="tracking-wide font-medium">CUSTOM DESIGN SYSTEM</span>
           </div>

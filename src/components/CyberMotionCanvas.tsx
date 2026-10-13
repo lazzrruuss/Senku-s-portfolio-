@@ -51,7 +51,7 @@ export const CyberMotionCanvas: React.FC<CyberMotionCanvasProps> = ({
     const resize = () => {
       if (!canvas) return;
       const rect = canvas.parentElement?.getBoundingClientRect() || canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       width = rect.width;
       height = rect.height;
 
@@ -135,18 +135,7 @@ export const CyberMotionCanvas: React.FC<CyberMotionCanvasProps> = ({
       const nodeColor = isDark ? '34, 197, 94' : '0, 110, 47'; // Emerald
       const accentColor = isDark ? '74, 222, 128' : '22, 163, 74';
       const lineColor = isDark ? '255, 255, 255' : '27, 28, 26';
-      const maxDistance = 120;
-
-      // Draw subtle grid intersections for cyber tech aesthetic
-      ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.03)' : 'rgba(0, 0, 0, 0.03)';
-      const step = 48;
-      for (let gx = step; gx < width; gx += step * 2) {
-        for (let gy = step; gy < height; gy += step * 2) {
-          ctx.beginPath();
-          ctx.arc(gx, gy, 1, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
+      const maxDistance = 110;
 
       // Update and draw particles
       const mouse = mouseRef.current;

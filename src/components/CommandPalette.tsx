@@ -220,7 +220,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 sm:px-6 bg-black/75 backdrop-blur-md animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 sm:px-6 bg-black/50 backdrop-blur-xs animate-in fade-in duration-150"
       onClick={onClose}
     >
       <motion.div
@@ -229,10 +229,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         exit={{ opacity: 0, scale: 0.96, y: -15 }}
         transition={{ duration: 0.2 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-xl bg-[#faf9f5] dark:bg-[#121316] border border-[#747878]/30 dark:border-white/20 rounded-xl shadow-2xl overflow-hidden font-['Inter']"
+        className="w-full max-w-xl glass-panel-elevated rounded-2xl shadow-2xl overflow-hidden font-['Inter']"
       >
         {/* Search Input Bar */}
-        <div className="flex items-center gap-3 p-4 border-b border-[#747878]/15 dark:border-white/10 bg-[#f4f4f0] dark:bg-[#18191e]">
+        <div className="flex items-center gap-3 p-4 border-b border-[#747878]/15 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-md">
           <span className="material-symbols-outlined text-[#747878] dark:text-[#9ca3af] text-[20px]">
             search
           </span>
@@ -303,7 +303,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         </div>
 
         {/* Footer shortcuts helper */}
-        <div className="p-3 border-t border-[#747878]/15 dark:border-white/10 bg-[#f4f4f0] dark:bg-[#16171c] flex items-center justify-between text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af]">
+        <div className="p-3 border-t border-[#747878]/15 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-md flex items-center justify-between text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af]">
           <div className="flex items-center gap-3">
             <span>↑↓ {isJa ? '移動' : 'Navigate'}</span>
             <span>↵ {isJa ? '選択' : 'Select'}</span>

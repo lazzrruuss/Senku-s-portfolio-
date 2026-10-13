@@ -15,7 +15,7 @@ export const AboutPage: React.FC = () => {
   const principles = t.about.principlesList || PORTFOLIO_DATA.developer.codePrinciples;
 
   return (
-    <div className="relative w-full px-6 lg:px-12 py-16 sm:py-24 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200 min-h-[80vh] overflow-hidden">
+    <div className="relative w-full px-6 lg:px-12 py-16 sm:py-24 bg-transparent transition-colors duration-200 min-h-[80vh] overflow-hidden">
       {/* Ambient background particles */}
       <CyberMotionCanvas density="compact" interactive={true} />
 
@@ -66,19 +66,19 @@ export const AboutPage: React.FC = () => {
           transition={{ duration: 0.5 }}
           className="grid grid-cols-2 sm:grid-cols-4 gap-4 my-12"
         >
-          <motion.div whileHover={{ y: -4 }} className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10 hover:border-[#22C55E]/40 transition-colors">
+          <motion.div whileHover={{ y: -4 }} className="p-6 glass-card rounded-xl transition-all">
             <div className="text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af] uppercase">Role</div>
             <div className="text-sm sm:text-base font-bold text-[#1b1c1a] dark:text-white mt-1">{t.about.role}</div>
           </motion.div>
-          <motion.div whileHover={{ y: -4 }} className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10 hover:border-[#22C55E]/40 transition-colors">
+          <motion.div whileHover={{ y: -4 }} className="p-6 glass-card rounded-xl transition-all">
             <div className="text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af] uppercase">Status</div>
             <div className="text-sm sm:text-base font-bold text-[#22C55E] mt-1">{t.about.status}</div>
           </motion.div>
-          <motion.div whileHover={{ y: -4 }} className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10 hover:border-[#22C55E]/40 transition-colors">
+          <motion.div whileHover={{ y: -4 }} className="p-6 glass-card rounded-xl transition-all">
             <div className="text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af] uppercase">Speed</div>
             <div className="text-sm sm:text-base font-bold text-[#1b1c1a] dark:text-white mt-1">{t.about.speed}</div>
           </motion.div>
-          <motion.div whileHover={{ y: -4 }} className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10 hover:border-[#22C55E]/40 transition-colors">
+          <motion.div whileHover={{ y: -4 }} className="p-6 glass-card rounded-xl transition-all">
             <div className="text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af] uppercase">Motion</div>
             <div className="text-sm sm:text-base font-bold text-[#22C55E] mt-1">{t.about.motion}</div>
           </motion.div>
@@ -104,7 +104,7 @@ export const AboutPage: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10 rounded-sm hover:border-[#22C55E]/50 transition-all"
+                className="p-6 glass-card rounded-xl transition-all"
               >
                 <div className="font-['JetBrains_Mono'] text-xs text-[#006e2f] dark:text-[#4ade80] uppercase mb-2 font-medium">
                   0{idx + 1} // {t.about.principles}

@@ -65,7 +65,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-label="Select language"
-        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/20 dark:border-white/10 hover:border-[#22C55E]/50 dark:hover:border-[#22C55E]/50 text-[#1b1c1a] dark:text-white font-['JetBrains_Mono'] text-xs font-semibold tracking-wider transition-all duration-200 cursor-pointer shadow-2xs group"
+        className="glass-btn inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[#1b1c1a] dark:text-white font-['JetBrains_Mono'] text-xs font-semibold tracking-wider transition-all duration-200 cursor-pointer shadow-xs group"
         title="Change Language"
       >
         <span className="material-symbols-outlined text-[16px] text-[#747878] dark:text-[#9ca3af] group-hover:text-[#22C55E] transition-colors">
@@ -90,14 +90,16 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
             exit={{ opacity: 0, y: 4, scale: 0.95 }}
             transition={{ duration: 0.18, ease: [0.21, 0.47, 0.32, 0.98] }}
             className={`absolute right-0 mt-2 ${
-              compact ? 'w-48' : 'w-52'
-            } bg-[#faf9f5] dark:bg-[#121316] border border-[#747878]/25 dark:border-white/15 rounded-xl shadow-2xl p-1.5 z-50 font-['JetBrains_Mono'] select-none backdrop-blur-md`}
+              compact ? 'w-52' : 'w-56'
+            } glass-panel-elevated rounded-xl shadow-2xl p-1.5 z-50 font-['JetBrains_Mono'] select-none`}
             role="listbox"
             aria-label="Language options"
           >
             <div className="px-2.5 py-1.5 text-[10px] uppercase tracking-widest text-[#747878] dark:text-[#9ca3af] border-b border-[#747878]/15 dark:border-white/10 mb-1 flex items-center justify-between">
               <span>Select Language</span>
-              <span className="text-[9px] bg-black/10 dark:bg-white/10 px-1 py-0.5 rounded">6 LOC</span>
+              <span className="text-[9px] bg-black/5 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">
+                {SUPPORTED_LANGUAGES.length} REGIONS
+              </span>
             </div>
 
             <div className="space-y-0.5">
@@ -111,18 +113,18 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
                     onMouseEnter={() => sound.playHover()}
                     role="option"
                     aria-selected={isActive}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-colors cursor-pointer text-left ${
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-all cursor-pointer text-left ${
                       isActive
-                        ? 'bg-[#22C55E]/15 text-[#006e2f] dark:text-[#4ade80] font-bold border border-[#22C55E]/30'
-                        : 'text-[#444748] dark:text-[#d1d5db] hover:bg-black/5 dark:hover:bg-white/5 hover:text-[#1b1c1a] dark:hover:text-white'
+                        ? 'bg-[#22C55E]/15 text-[#006e2f] dark:text-[#4ade80] font-bold border border-[#22C55E]/30 shadow-xs'
+                        : 'text-[#444748] dark:text-[#d1d5db] hover:bg-black/5 dark:hover:bg-white/10 hover:text-[#1b1c1a] dark:hover:text-white'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
                       <span
                         className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
                           isActive
-                            ? 'bg-[#22C55E] text-black'
-                            : 'bg-[#efeeea] dark:bg-[#212328] text-[#747878] dark:text-[#9ca3af]'
+                            ? 'bg-[#22C55E] text-black shadow-xs'
+                            : 'bg-black/5 dark:bg-white/10 text-[#747878] dark:text-[#9ca3af]'
                         }`}
                       >
                         {item.flag}

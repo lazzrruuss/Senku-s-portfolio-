@@ -67,6 +67,7 @@ export const BrandedPreloader: React.FC<BrandedPreloaderProps> = ({ onComplete }
     es: 'Desarrollador Web3 Independiente',
     ko: '독립형 Web3 프론트엔드 개발자',
     fr: 'Développeur Web3 Indépendant',
+    de: 'Unabhängiger Web3-Entwickler',
   };
 
   const handleSkip = () => {
@@ -92,13 +93,12 @@ export const BrandedPreloader: React.FC<BrandedPreloaderProps> = ({ onComplete }
           aria-valuemin={0}
           aria-valuemax={100}
         >
-          {/* Subtle Ambient Background Mesh */}
-          <div className="absolute inset-0 bg-[radial-gradient(#22c55e_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
+          {/* Subtle Ambient Background */}
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#22C55E]/10 rounded-full blur-3xl pointer-events-none" />
 
           {/* Top Header Row */}
           <div className="relative z-10 flex items-center justify-between text-xs font-['JetBrains_Mono'] text-white/50 tracking-wider">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 glass-pill px-3 py-1.5 rounded-full">
               <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-ping" />
               <span className="text-white/80">SENKU PORTFOLIO // 2026</span>
             </div>
@@ -106,7 +106,7 @@ export const BrandedPreloader: React.FC<BrandedPreloaderProps> = ({ onComplete }
             <button
               type="button"
               onClick={handleSkip}
-              className="text-[11px] text-white/40 hover:text-[#22C55E] uppercase transition-colors cursor-pointer"
+              className="text-[11px] text-white/40 hover:text-[#22C55E] uppercase transition-colors cursor-pointer glass-pill px-2.5 py-1 rounded-md"
             >
               Skip [ESC] →
             </button>
@@ -140,7 +140,7 @@ export const BrandedPreloader: React.FC<BrandedPreloaderProps> = ({ onComplete }
           </div>
 
           {/* Bottom Progress Bar & Telemetry Status */}
-          <div className="relative z-10 max-w-xl mx-auto w-full space-y-3">
+          <div className="relative z-10 max-w-xl mx-auto w-full space-y-3 glass-panel p-5 rounded-2xl border-white/10 shadow-2xl">
             <div className="flex items-center justify-between text-[11px] font-['JetBrains_Mono'] text-white/50 uppercase tracking-wider">
               <span>{statusText}</span>
               <span className="text-[#22C55E] font-semibold">
@@ -149,7 +149,7 @@ export const BrandedPreloader: React.FC<BrandedPreloaderProps> = ({ onComplete }
             </div>
 
             {/* Track Bar */}
-            <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden relative">
+            <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden relative">
               <motion.div
                 className="h-full bg-gradient-to-r from-[#22C55E] via-[#4ade80] to-[#22C55E] shadow-[0_0_12px_#22c55e]"
                 style={{ width: `${progress}%` }}

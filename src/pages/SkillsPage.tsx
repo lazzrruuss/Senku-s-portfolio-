@@ -20,7 +20,7 @@ export const SkillsPage: React.FC = () => {
     : PORTFOLIO_DATA.services;
 
   return (
-    <div className="relative w-full px-6 lg:px-12 py-16 sm:py-24 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200 min-h-[80vh] overflow-hidden">
+    <div className="relative w-full px-6 lg:px-12 py-16 sm:py-24 bg-transparent transition-colors duration-200 min-h-[80vh] overflow-hidden">
       {/* Ambient background particles */}
       <CyberMotionCanvas density="compact" interactive={true} />
 
@@ -85,7 +85,7 @@ export const SkillsPage: React.FC = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.45, delay: idx * 0.08 }}
                   whileHover={{ x: 8 }}
-                  className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] flex items-center gap-4 border border-[#747878]/15 dark:border-white/10 hover:border-[#22C55E]/60 transition-colors duration-200 group cursor-default rounded-sm"
+                  className="p-6 glass-card rounded-xl flex items-center gap-4 transition-all duration-200 group cursor-default"
                 >
                   <span className="material-symbols-outlined text-[#006e2f] dark:text-[#4ade80] group-hover:text-[#22C55E] dark:group-hover:text-[#22C55E] transition-colors text-[24px]">
                     {service.icon}
@@ -117,8 +117,8 @@ export const SkillsPage: React.FC = () => {
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.06 }}
-                  whileHover={{ y: -5, borderColor: '#22c55e' }}
-                  className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] flex flex-col items-center justify-center text-center gap-2 border border-[#747878]/15 dark:border-white/10 transition-all duration-200 group cursor-default rounded-sm"
+                  whileHover={{ y: -5 }}
+                  className="p-6 glass-card rounded-xl flex flex-col items-center justify-center text-center gap-2 transition-all duration-200 group cursor-default"
                 >
                   <span className="font-['JetBrains_Mono'] text-sm sm:text-base text-[#1b1c1a] dark:text-white font-medium group-hover:text-[#22C55E] transition-colors">
                     {tech.name}
@@ -136,7 +136,7 @@ export const SkillsPage: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.15 }}
-              className="mt-8 p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10 rounded-sm"
+              className="mt-8 p-6 glass-panel rounded-xl"
             >
               <div className="font-['JetBrains_Mono'] text-xs uppercase tracking-wider text-[#747878] dark:text-[#9ca3af] mb-3">
                 {t.skills.ecosystemTitle}
@@ -145,7 +145,7 @@ export const SkillsPage: React.FC = () => {
                 {PORTFOLIO_DATA.ecosystemSkills.map((skill, idx) => (
                   <span
                     key={idx}
-                    className="px-2.5 py-1 bg-[#faf9f5] dark:bg-[#212328] text-[#1b1c1a] dark:text-white font-['JetBrains_Mono'] text-xs border border-[#747878]/10 dark:border-white/10 rounded hover:border-[#22C55E] transition-colors"
+                    className="px-2.5 py-1 glass-pill rounded-md text-[#1b1c1a] dark:text-white font-['JetBrains_Mono'] text-xs hover:border-[#22C55E] transition-colors"
                   >
                     {skill}
                   </span>

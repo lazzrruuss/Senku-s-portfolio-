@@ -14,11 +14,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { language, t } = useLanguage();
 
-  const jumpText: Record<Language, string> = { en: 'Jump:', ja: '移動:', zh: '跳转:', es: 'Ir a:', ko: '이동:', fr: 'Aller à:' };
-  const jumpAbout: Record<Language, string> = { en: 'About', ja: '概要', zh: '概要', es: 'Acerca', ko: '소개', fr: 'À propos' };
-  const jumpMetrics: Record<Language, string> = { en: 'Metrics', ja: '指標', zh: '指标', es: 'Métricas', ko: '지표', fr: 'Indicateurs' };
-  const jumpFeatures: Record<Language, string> = { en: 'Features', ja: '機能', zh: '功能', es: 'Funciones', ko: '기능', fr: 'Fonctionnalités' };
-  const jumpTech: Record<Language, string> = { en: 'Tech', ja: '技術', zh: '技术', es: 'Tecnología', ko: '기술', fr: 'Tech' };
+  const jumpText: Record<Language, string> = { en: 'Jump:', ja: '移動:', zh: '跳转:', es: 'Ir a:', ko: '이동:', fr: 'Aller à:', de: 'Gehe zu:' };
+  const jumpAbout: Record<Language, string> = { en: 'About', ja: '概要', zh: '概要', es: 'Acerca', ko: '소개', fr: 'À propos', de: 'Über' };
+  const jumpMetrics: Record<Language, string> = { en: 'Metrics', ja: '指標', zh: '指标', es: 'Métricas', ko: '지표', fr: 'Indicateurs', de: 'Metriken' };
+  const jumpFeatures: Record<Language, string> = { en: 'Features', ja: '機能', zh: '功能', es: 'Funciones', ko: '기능', fr: 'Fonctionnalités', de: 'Funktionen' };
+  const jumpTech: Record<Language, string> = { en: 'Tech', ja: '技術', zh: '技术', es: 'Tecnología', ko: '기술', fr: 'Tech', de: 'Technik' };
 
   const readLabel: Record<Language, string> = {
     en: 'READ',
@@ -27,6 +27,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     es: 'LEÍDO',
     ko: '읽음',
     fr: 'LU',
+    de: 'GELESEN',
   };
   const caseStudyOverviewText: Record<Language, string> = {
     en: 'Case Study Overview',
@@ -35,6 +36,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     es: 'Resumen del Estudio',
     ko: '프로젝트 개요',
     fr: "Aperçu de l'Étude de Cas",
+    de: 'Fallstudien-Übersicht',
   };
   const aboutHeading: Record<Language, string> = {
     en: 'About this project',
@@ -43,6 +45,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     es: 'Acerca de este proyecto',
     ko: '프로젝트 소개',
     fr: 'À propos de ce projet',
+    de: 'Über dieses Projekt',
   };
   const metricsHeading: Record<Language, string> = {
     en: 'Key Metrics & Architecture',
@@ -51,6 +54,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     es: 'Métricas Clave y Arquitectura',
     ko: '핵심 지표 및 아키텍처',
     fr: 'Indicateurs Clés & Architecture',
+    de: 'Schlüsselmetriken & Architektur',
   };
   const capabilitiesHeading: Record<Language, string> = {
     en: 'Key Frontend Capabilities',
@@ -59,6 +63,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     es: 'Capacidades Frontend Clave',
     ko: '주요 프론트엔드 기능',
     fr: 'Fonctionnalités Frontend Clés',
+    de: 'Zentrale Frontend-Funktionen',
   };
   const techHeading: Record<Language, string> = {
     en: 'Technologies Used',
@@ -67,6 +72,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     es: 'Tecnologías Utilizadas',
     ko: '사용 기술 스택',
     fr: 'Technologies Utilisées',
+    de: 'Eingesetzte Technologien',
   };
   const closeBtnText: Record<Language, string> = {
     en: 'Close',
@@ -75,6 +81,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     es: 'Cerrar',
     ko: '닫기',
     fr: 'Fermer',
+    de: 'Schließen',
   };
   const buildBtnText: Record<Language, string> = {
     en: 'Build Similar Project',
@@ -83,6 +90,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     es: 'Crear Proyecto Similar',
     ko: '유사 프로젝트 의뢰',
     fr: 'Créer un Projet Similaire',
+    de: 'Ähnliches Projekt anfragen',
   };
 
   const getReadStr = () => {
@@ -188,7 +196,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
       {/* 3. MODAL OVERLAY */}
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200"
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/45 backdrop-blur-xs animate-in fade-in duration-200"
         onClick={onClose}
         role="dialog"
         aria-modal="true"
@@ -197,7 +205,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         <div
           ref={scrollContainerRef}
           onScroll={handleScroll}
-          className="bg-[#faf9f5] dark:bg-[#121316] border border-[#747878]/25 dark:border-white/15 rounded-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col transition-colors duration-200 relative"
+          className="glass-panel-elevated rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col transition-colors duration-200 relative"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Synchronized Header Top Progress Bar */}
@@ -209,16 +217,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           </div>
 
           {/* Header Bar */}
-          <div className="p-6 border-b border-[#747878]/15 dark:border-white/10 flex items-start justify-between bg-[#f4f4f0] dark:bg-[#18191e] sticky top-[2.5px] z-10">
+          <div className="p-6 border-b border-[#747878]/15 dark:border-white/10 flex items-start justify-between frosted-navbar sticky top-[2.5px] z-10">
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <span className="px-2.5 py-0.5 bg-[#efeeea] dark:bg-[#212328] border border-[#747878]/20 dark:border-white/10 font-['JetBrains_Mono'] text-xs uppercase text-[#444748] dark:text-[#d1d5db]">
+                <span className="px-2.5 py-0.5 glass-pill border border-[#747878]/20 dark:border-white/10 font-['JetBrains_Mono'] text-xs uppercase text-[#444748] dark:text-[#d1d5db] rounded">
                   {project.badge}
                 </span>
                 <span className="font-['JetBrains_Mono'] text-xs text-[#747878] dark:text-[#9ca3af]">
                   {project.number}
                 </span>
-                <span className="text-[11px] font-['JetBrains_Mono'] text-[#006e2f] dark:text-[#4ade80] bg-[#22C55E]/10 px-2 py-0.5 rounded font-medium">
+                <span className="text-[11px] font-['JetBrains_Mono'] text-[#006e2f] dark:text-[#4ade80] bg-[#22C55E]/15 border border-[#22C55E]/30 px-2 py-0.5 rounded font-medium">
                   {getReadStr()}
                 </span>
               </div>
@@ -239,7 +247,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 sound.playClick(500);
                 onClose();
               }}
-              className="w-9 h-9 rounded-full bg-[#efeeea] dark:bg-[#212328] hover:bg-[#1b1c1a] dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors flex items-center justify-center text-[#1b1c1a] dark:text-white cursor-pointer"
+              className="w-9 h-9 rounded-full glass-btn transition-colors flex items-center justify-center text-[#1b1c1a] dark:text-white cursor-pointer"
               aria-label="Close modal"
             >
               <span className="material-symbols-outlined text-[20px]">close</span>
@@ -308,7 +316,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 {project.highlights.map((h, i) => (
                   <div
                     key={i}
-                    className="p-3 bg-[#f4f4f0] dark:bg-[#18191e] border border-[#747878]/15 dark:border-white/10 rounded text-center"
+                    className="p-3 glass-card rounded-lg text-center"
                   >
                     <div className="text-[11px] font-['JetBrains_Mono'] text-[#747878] dark:text-[#9ca3af] uppercase mb-1">
                       {h.label}
@@ -330,7 +338,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 {displayFeatures.map((feature, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start gap-2.5 p-3 bg-white dark:bg-[#18191e] border border-[#747878]/15 dark:border-white/10 rounded text-sm text-[#1b1c1a] dark:text-white"
+                    className="flex items-start gap-2.5 p-3 glass-card rounded-lg text-sm text-[#1b1c1a] dark:text-white"
                   >
                     <span className="material-symbols-outlined text-[#22C55E] text-[18px] shrink-0 mt-0.5">
                       check_circle
@@ -350,7 +358,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 {project.tags.map((tag, idx) => (
                   <span
                     key={idx}
-                    className="px-3 py-1 bg-[#efeeea] dark:bg-[#212328] font-['JetBrains_Mono'] text-xs text-[#1b1c1a] dark:text-white rounded"
+                    className="px-3 py-1 glass-pill font-['JetBrains_Mono'] text-xs text-[#1b1c1a] dark:text-white rounded-md"
                   >
                     {tag}
                   </span>
@@ -360,7 +368,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           </div>
 
           {/* Modal Footer */}
-          <div className="p-6 border-t border-[#747878]/15 dark:border-white/10 bg-[#f4f4f0] dark:bg-[#18191e] flex flex-wrap items-center justify-between gap-4">
+          <div className="p-6 border-t border-[#747878]/15 dark:border-white/10 frosted-navbar flex flex-wrap items-center justify-between gap-4">
             <div className="text-xs text-[#747878] dark:text-[#9ca3af] font-['JetBrains_Mono'] flex items-center gap-2">
               <span>{language === 'ja' || language === 'zh' ? 'Senku (千空)' : 'Senku'}</span>
               <span>·</span>
@@ -374,7 +382,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   href={project.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 bg-[#22C55E] hover:bg-[#16a34a] text-black text-xs font-['JetBrains_Mono'] uppercase rounded transition-colors flex items-center gap-1.5 font-bold cursor-pointer"
+                  className="px-4 py-2 bg-[#22C55E] hover:bg-[#16a34a] text-black text-xs font-['JetBrains_Mono'] uppercase rounded-lg transition-all flex items-center gap-1.5 font-bold cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(34,197,94,0.3)]"
                 >
                   <span>{t.work.launchLive}</span>
                   <span className="material-symbols-outlined text-[15px]">open_in_new</span>
@@ -386,7 +394,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   sound.playClick(500);
                   onClose();
                 }}
-                className="px-4 py-2 bg-transparent border border-[#747878]/30 dark:border-white/20 hover:border-[#1b1c1a] dark:hover:border-white text-xs font-['JetBrains_Mono'] uppercase text-[#1b1c1a] dark:text-white rounded transition-colors cursor-pointer"
+                className="px-4 py-2 glass-btn text-xs font-['JetBrains_Mono'] uppercase text-[#1b1c1a] dark:text-white rounded-lg transition-colors cursor-pointer"
               >
                 {closeBtnText[language] || 'Close'}
               </button>

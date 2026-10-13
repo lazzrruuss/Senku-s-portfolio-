@@ -70,7 +70,7 @@ export const PORTFOLIO_DATA = {
   projects: [
     {
       id: 'grim-memecoin',
-      number: '01 / 03',
+      number: '01 / 04',
       title: 'GRIM ($GRIM)',
       badge: 'Live Project',
       category: 'Web3 Terminal & Memecoin Portal',
@@ -102,7 +102,7 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: 'pepeak-memecoin',
-      number: '02 / 03',
+      number: '02 / 04',
       title: 'PEPEAK ($PEAK)',
       badge: 'Live Project',
       category: 'Memecoin Website',
@@ -134,7 +134,7 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: 'ronnie-coin',
-      number: '03 / 03',
+      number: '03 / 04',
       title: 'RONNIE ($RONNIE)',
       badge: 'Live Project',
       category: 'Solana Rhino Memecoin',
@@ -162,6 +162,38 @@ export const PORTFOLIO_DATA = {
         { label: 'Speed', value: '< 400ms Finality' },
         { label: 'Gas Fee', value: '< $0.001' },
         { label: 'Ecosystem', value: 'Raydium & DexScreener' },
+      ],
+    },
+    {
+      id: 'rocket-flow',
+      number: '04 / 04',
+      title: 'Rocket Flow ($FLOW)',
+      badge: 'Live Project',
+      category: 'Solana Memecoin & Launchpad',
+      description:
+        'We Were Never Built To Stay Grounded. High-velocity community memecoin on Solana powered by internet culture, interactive rocket liftoff sequence, and neo-brutalist aesthetics.',
+      detailedDescription:
+        'An electrifying high-velocity Solana memecoin portal and launch pad engineered with neo-brutalist styling, interactive blast-off countdown animation, verified tokenomics, direct Telegram alpha community routing, and rapid DEX swap accessibility. Built to showcase raw kinetic energy, bold typography, and seamless viral community onboarding.',
+      tags: ['React', 'TypeScript', 'Tailwind CSS', 'Solana Ecosystem'],
+      year: '2024',
+      demoUrl: 'https://rocket-flow.netlify.app/',
+      actionText: 'Visit Live Site',
+      actionType: 'demo',
+      features: [
+        'Interactive rocket liftoff sequence with custom sound FX and blast-off states',
+        'Neo-brutalist high-contrast typography & jet-black/acid-emerald visual palette',
+        'Pre-launch and live liquidity routing with exclusive Telegram community alerts',
+        'Mobile-first responsive architecture deployed on Netlify Edge with instant loading',
+      ],
+      highlights: [
+        { label: 'Network', value: 'Solana (SPL)' },
+        { label: 'Token', value: '$FLOW' },
+        { label: 'Hosting', value: 'Netlify Edge' },
+      ],
+      metrics: [
+        { label: 'Total Supply', value: '1,000,000,000' },
+        { label: 'Buy/Sell Tax', value: '0% / 0%' },
+        { label: 'Fair Launch', value: '100% Community' },
       ],
     },
   ] as Project[],

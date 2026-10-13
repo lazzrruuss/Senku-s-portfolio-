@@ -23,6 +23,7 @@ const SCOPES: ScopeOption[] = [
       es: 'Plataforma para Memecoin',
       ko: '밈코인 런칭패드',
       fr: 'Launchpad Memecoin',
+      de: 'Memecoin-Launchpad',
     },
     time: {
       en: '24 Hours',
@@ -31,6 +32,7 @@ const SCOPES: ScopeOption[] = [
       es: '24 Horas',
       ko: '24시간 내 배포',
       fr: '24 Heures',
+      de: '24 Stunden',
     },
     desc: {
       en: 'High-converting viral landing page, buy portal, tokenomics, and live contract verification.',
@@ -39,6 +41,7 @@ const SCOPES: ScopeOption[] = [
       es: 'Landing page de alto impacto, portal de compra, tokenomics y verificación de contrato en vivo.',
       ko: '고전환율 랜딩 페이지, 구매 포털, 토크노믹스 및 컨트랙트 즉시 검증.',
       fr: 'Landing page virale à haute conversion, portail d’achat, tokenomics et vérification on-chain.',
+      de: 'Virale Landing-Page mit hoher Konversion, Kaufportal, Tokenomics und Live-Vertragsverifizierung.',
     },
   },
   {
@@ -51,6 +54,7 @@ const SCOPES: ScopeOption[] = [
       es: 'Portal dApp y Web3 Completo',
       ko: '풀스택 dApp & Web3 포털',
       fr: 'Portail dApp & Web3 Complet',
+      de: 'Komplettes dApp & Web3 Portal',
     },
     time: {
       en: '48 Hours',
@@ -59,6 +63,7 @@ const SCOPES: ScopeOption[] = [
       es: '48 Horas',
       ko: '48시간 내 배포',
       fr: '48 Heures',
+      de: '48 Stunden',
     },
     desc: {
       en: 'Custom decentralized frontend with live RPC queries, token swap embed, and responsive wallet UI.',
@@ -67,6 +72,7 @@ const SCOPES: ScopeOption[] = [
       es: 'Frontend descentralizado a medida, consultas RPC en vivo, swap integrado y UI para wallets.',
       ko: '커스텀 탈중앙화 프론트엔드, 실시간 RPC 쿼리, 토큰 스왑 임베드 및 반응형 지갑 UI.',
       fr: 'Frontend décentralisé sur-mesure avec requêtes RPC en direct, widget de swap et UI responsive.',
+      de: 'Maßgeschneidertes dezentrales Frontend mit Live-RPC-Abfragen, Token-Swap und reaktionsschneller Wallet-UI.',
     },
   },
   {
@@ -79,6 +85,7 @@ const SCOPES: ScopeOption[] = [
       es: 'Suite de Protocolo a Medida',
       ko: '맞춤형 프로토콜 풀 스위트',
       fr: 'Suite de Protocole Sur-Mesure',
+      de: 'Maßgeschneiderte Protokoll-Suite',
     },
     time: {
       en: '3–5 Days',
@@ -87,6 +94,7 @@ const SCOPES: ScopeOption[] = [
       es: '3–5 Días',
       ko: '3–5일 소요',
       fr: '3–5 Jours',
+      de: '3–5 Tage',
     },
     desc: {
       en: 'Multi-page website, custom design system, interactive canvas styling, and clean documentation.',
@@ -95,6 +103,7 @@ const SCOPES: ScopeOption[] = [
       es: 'Sitio multipágina, sistema de diseño exclusivo, animaciones interactivas y documentación clara.',
       ko: '멀티페이지 웹사이트, 맞춤형 디자인 시스템, 인터랙티브 캔버스 및 깔끔한 문서화.',
       fr: 'Site multi-pages, design system dédié, animations interactives canvas et documentation soignée.',
+      de: 'Mehrseitige Website, individuelles Designsystem, interaktive Canvas-Grafiken und saubere Dokumentation.',
     },
   },
 ];
@@ -116,6 +125,7 @@ const ADDONS: Addon[] = [
       es: 'Animaciones Suaves y Microinteracciones',
       ko: '유려한 커스텀 모션 및 마이크로 인터랙션',
       fr: 'Animations Fluides & Micro-interactions',
+      de: 'Flüssige Custom-Animationen & Mikro-Interaktionen',
     },
   },
   {
@@ -128,6 +138,7 @@ const ADDONS: Addon[] = [
       es: 'Widget de Swap DEX en Vivo (Raydium / Uniswap)',
       ko: '실시간 Raydium / Uniswap DEX 스왑 위젯',
       fr: 'Widget de Swap DEX en Direct (Raydium / Uniswap)',
+      de: 'Eingebettetes Live-DEX-Swap-Widget (Raydium / Uniswap)',
     },
   },
   {
@@ -140,6 +151,7 @@ const ADDONS: Addon[] = [
       es: 'Gráfico de Precios en Vivo y DexScreener',
       ko: 'DexScreener 및 실시간 가격 차트 임베드',
       fr: 'Intégration DexScreener & Graphique en Direct',
+      de: 'DexScreener & Live-Chart-Einbettung',
     },
   },
   {
@@ -152,6 +164,7 @@ const ADDONS: Addon[] = [
       es: 'Branding Personalizado y Material para Redes',
       ko: '맞춤형 브랜딩 및 소셜 미디어 애셋 최적화',
       fr: 'Branding Personnalisé & Assets Réseaux Sociaux',
+      de: 'Individuelles Branding & Social-Media-Asset-Feinschliff',
     },
   },
 ];
@@ -238,6 +251,15 @@ export const ProjectEstimator: React.FC = () => {
 Échangeons sur les détails !`;
     }
 
+    if (language === 'de') {
+      return `Hallo Senku! Ich möchte ein Projekt anfragen:
+- Gewähltes Paket: ${sName}
+- Ziel-Lieferzeit: ${sTime}
+- Optionen: ${addonNames.length > 0 ? addonNames.join(', ') : 'Keine'}
+- Geschätztes Budget: ~$${totalPrice} USD
+Lass uns die Details besprechen!`;
+    }
+
     return `Hey Senku! I'd like to book a project:
 - Package: ${sName}
 - Target Delivery: ${sTime}
@@ -266,10 +288,11 @@ Let's discuss details!`;
     es: 'base',
     ko: '기본가',
     fr: 'base',
+    de: 'Basis',
   };
 
   return (
-    <div className="w-full p-6 sm:p-8 rounded-xl bg-[#faf9f5] dark:bg-[#111216] border border-[#747878]/20 dark:border-white/10 shadow-xl transition-colors font-['Inter']">
+    <div className="w-full p-6 sm:p-8 rounded-2xl glass-panel-elevated shadow-xl transition-all font-['Inter'] relative overflow-hidden">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#747878]/15 dark:border-white/10">
         <div>
           <span className="font-['JetBrains_Mono'] text-xs text-[#006e2f] dark:text-[#4ade80] uppercase tracking-widest font-semibold block mb-1">
@@ -280,7 +303,7 @@ Let's discuss details!`;
           </h3>
         </div>
 
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/30 text-xs font-['JetBrains_Mono'] text-[#006e2f] dark:text-[#4ade80] shrink-0">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-pill border border-[#22C55E]/30 text-xs font-['JetBrains_Mono'] text-[#006e2f] dark:text-[#4ade80] shrink-0">
           <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-ping" />
           <span>{t.estimator.pricingNote}</span>
         </div>
@@ -300,10 +323,10 @@ Let's discuss details!`;
                 sound.playClick(700);
                 setSelectedScope(scope.id);
               }}
-              className={`p-5 rounded-lg border cursor-pointer transition-all ${
+              className={`p-5 rounded-xl cursor-pointer transition-all ${
                 selectedScope === scope.id
-                  ? 'bg-white dark:bg-[#181920] border-[#22C55E] shadow-lg shadow-[#22c55e]/10 ring-1 ring-[#22c55e]'
-                  : 'bg-[#f4f4f0] dark:bg-[#16171c] border-[#747878]/15 dark:border-white/10 hover:border-[#1b1c1a]/40 dark:hover:border-white/30'
+                  ? 'glass-card border-[#22C55E] dark:border-[#22C55E] ring-1 ring-[#22C55E] shadow-xl shadow-[#22c55e]/15'
+                  : 'glass-card hover:border-[#22C55E]/50'
               }`}
             >
               <div className="flex justify-between items-start mb-2">
@@ -337,10 +360,10 @@ Let's discuss details!`;
               <div
                 key={addon.id}
                 onClick={() => toggleAddon(addon.id)}
-                className={`p-3.5 rounded-lg border flex items-center justify-between cursor-pointer transition-all ${
+                className={`p-3.5 rounded-xl flex items-center justify-between cursor-pointer transition-all ${
                   isChecked
-                    ? 'bg-white dark:bg-[#181920] border-[#22C55E] text-[#1b1c1a] dark:text-white'
-                    : 'bg-[#f4f4f0] dark:bg-[#16171c] border-[#747878]/15 dark:border-white/10 text-[#444748] dark:text-[#d1d5db] hover:border-[#747878]/40'
+                    ? 'glass-card border-[#22C55E] dark:border-[#22C55E] ring-1 ring-[#22C55E] text-[#1b1c1a] dark:text-white shadow-sm'
+                    : 'glass-card text-[#444748] dark:text-[#d1d5db] hover:border-[#22C55E]/40'
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -363,7 +386,7 @@ Let's discuss details!`;
       </div>
 
       {/* 3. Total & Action Row */}
-      <div className="pt-6 border-t border-[#747878]/15 dark:border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 bg-[#f4f4f0] dark:bg-[#16171c] p-6 rounded-lg">
+      <div className="pt-6 border-t border-[#747878]/15 dark:border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 glass-panel p-6 rounded-xl">
         <div>
           <div className="text-xs font-['JetBrains_Mono'] uppercase tracking-wider text-[#747878] dark:text-[#9ca3af]">
             {t.estimator.timeLabel} <span className="text-[#22C55E] font-bold">{getScopeTime(currentScope)}</span>
@@ -377,7 +400,7 @@ Let's discuss details!`;
           <button
             type="button"
             onClick={handleCopyBrief}
-            className="flex-1 md:flex-initial px-4 py-3 border border-[#747878]/30 dark:border-white/20 hover:border-[#1b1c1a] dark:hover:border-white rounded text-xs font-['JetBrains_Mono'] uppercase transition-colors cursor-pointer text-[#1b1c1a] dark:text-white"
+            className="flex-1 md:flex-initial px-4 py-3 glass-btn rounded-lg text-xs font-['JetBrains_Mono'] uppercase transition-colors cursor-pointer text-[#1b1c1a] dark:text-white"
           >
             {copied ? t.estimator.copied : t.estimator.copyBrief}
           </button>
@@ -385,7 +408,7 @@ Let's discuss details!`;
           <button
             type="button"
             onClick={handleSendTelegram}
-            className="flex-1 md:flex-initial px-6 py-3 bg-[#22C55E] hover:bg-[#16a34a] text-black font-bold text-xs font-['JetBrains_Mono'] uppercase rounded transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#22c55e]/25 cursor-pointer"
+            className="flex-1 md:flex-initial px-6 py-3 bg-[#22C55E] hover:bg-[#16a34a] text-black font-bold text-xs font-['JetBrains_Mono'] uppercase rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#22c55e]/25 cursor-pointer"
           >
             <span>{t.estimator.bookTg}</span>
             <span className="material-symbols-outlined text-[16px]">arrow_outward</span>

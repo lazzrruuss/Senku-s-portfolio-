@@ -65,7 +65,7 @@ ${formState.name}`;
   };
 
   return (
-    <section className="w-full px-6 lg:px-12 py-24 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200" id="contact">
+    <section className="w-full px-6 lg:px-12 py-24 bg-transparent transition-colors duration-200" id="contact">
       <div className="max-w-3xl mx-auto text-center flex flex-col items-center gap-8">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
@@ -150,13 +150,13 @@ ${formState.name}`;
           </motion.div>
         </motion.div>
 
-        {/* Project Brief Quick Form */}
+          {/* Project Brief Quick Form */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.25 }}
-          className="w-full max-w-xl mt-8 pt-8 border-t border-[#747878]/15 dark:border-white/10 text-left"
+          className="w-full max-w-xl mt-8 glass-panel-elevated p-6 sm:p-8 rounded-2xl shadow-xl text-left"
         >
           <div className="text-center mb-6">
             <span className="font-['JetBrains_Mono'] text-xs uppercase tracking-wider text-[#747878] dark:text-[#9ca3af]">
@@ -165,7 +165,7 @@ ${formState.name}`;
           </div>
 
           {formSubmitted ? (
-            <div className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#22C55E]/40 rounded text-center animate-in fade-in">
+            <div className="p-6 glass-card border border-[#22C55E]/40 rounded-xl text-center animate-in fade-in">
               <span className="material-symbols-outlined text-[#22C55E] text-3xl mb-2">
                 check_circle
               </span>
@@ -214,7 +214,7 @@ ${formState.name}`;
                       setFormState({ ...formState, name: e.target.value })
                     }
                     placeholder="e.g. Satoshi or Protocol Lead"
-                    className="w-full px-3.5 py-2.5 bg-white dark:bg-[#16171c] border border-[#747878]/25 dark:border-white/20 rounded text-sm text-[#1b1c1a] dark:text-white placeholder-[#747878] dark:placeholder-[#71717a] focus:outline-none focus:border-[#22C55E]"
+                    className="w-full px-3.5 py-2.5 glass-input rounded-lg text-sm text-[#1b1c1a] dark:text-white placeholder-[#747878] dark:placeholder-[#71717a] focus:outline-none"
                   />
                 </div>
                 <div>
@@ -234,7 +234,7 @@ ${formState.name}`;
                       setFormState({ ...formState, handleOrEmail: e.target.value })
                     }
                     placeholder="@telegram_handle or email"
-                    className="w-full px-3.5 py-2.5 bg-white dark:bg-[#16171c] border border-[#747878]/25 dark:border-white/20 rounded text-sm text-[#1b1c1a] dark:text-white placeholder-[#747878] dark:placeholder-[#71717a] focus:outline-none focus:border-[#22C55E]"
+                    className="w-full px-3.5 py-2.5 glass-input rounded-lg text-sm text-[#1b1c1a] dark:text-white placeholder-[#747878] dark:placeholder-[#71717a] focus:outline-none"
                   />
                 </div>
               </div>
@@ -253,7 +253,7 @@ ${formState.name}`;
                   onChange={(e) =>
                     setFormState({ ...formState, projectType: e.target.value })
                   }
-                  className="w-full px-3.5 py-2.5 bg-white dark:bg-[#16171c] border border-[#747878]/25 dark:border-white/20 rounded text-sm text-[#1b1c1a] dark:text-white focus:outline-none focus:border-[#22C55E]"
+                  className="w-full px-3.5 py-2.5 glass-input rounded-lg text-sm text-[#1b1c1a] dark:text-white focus:outline-none"
                 >
                   <option value="Memecoin Website" className="dark:bg-[#16171c] dark:text-white">Memecoin / Token Website</option>
                   <option value="Web3 Startup Landing Page" className="dark:bg-[#16171c] dark:text-white">Web3 Startup Landing Page</option>
@@ -279,7 +279,7 @@ ${formState.name}`;
                     setFormState({ ...formState, message: e.target.value })
                   }
                   placeholder="Tell me a bit about your token/protocol, target launch date, or design links..."
-                  className="w-full px-3.5 py-2.5 bg-white dark:bg-[#16171c] border border-[#747878]/25 dark:border-white/20 rounded text-sm text-[#1b1c1a] dark:text-white placeholder-[#747878] dark:placeholder-[#71717a] focus:outline-none focus:border-[#22C55E]"
+                  className="w-full px-3.5 py-2.5 glass-input rounded-lg text-sm text-[#1b1c1a] dark:text-white placeholder-[#747878] dark:placeholder-[#71717a] focus:outline-none"
                 ></textarea>
               </div>
 
@@ -288,7 +288,7 @@ ${formState.name}`;
                   whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.99 }}
                   type="submit"
-                  className="w-full py-3 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium transition-colors rounded cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full py-3 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium transition-colors rounded-lg cursor-pointer flex items-center justify-center gap-2 shadow-sm"
                 >
                   <span className="material-symbols-outlined text-[18px]">email</span>
                   <span>{t.contact.submitMail}</span>
@@ -299,7 +299,7 @@ ${formState.name}`;
                   whileTap={{ scale: 0.99 }}
                   type="button"
                   onClick={handleSendViaTelegram}
-                  className="w-full py-3 bg-[#0088cc]/15 dark:bg-[#0088cc]/25 text-[#0088cc] dark:text-[#38bdf8] border border-[#0088cc]/40 hover:bg-[#0088cc] hover:text-white dark:hover:bg-[#0088cc] dark:hover:text-white font-['Inter'] text-sm font-medium transition-colors rounded cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full py-3 glass-btn text-[#0088cc] dark:text-[#38bdf8] border-[#0088cc]/40 hover:bg-[#0088cc] hover:text-white dark:hover:bg-[#0088cc] dark:hover:text-white font-['Inter'] text-sm font-medium transition-colors rounded-lg cursor-pointer flex items-center justify-center gap-2"
                 >
                   <span className="material-symbols-outlined text-[18px]">send</span>
                   <span>{t.contact.submitTg}</span>

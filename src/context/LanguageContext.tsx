@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-export type Language = 'en' | 'ja' | 'zh' | 'es' | 'ko' | 'fr';
+export type Language = 'en' | 'ja' | 'zh' | 'es' | 'ko' | 'fr' | 'de';
 
 export interface LanguageOption {
   code: Language;
@@ -16,6 +16,7 @@ export const SUPPORTED_LANGUAGES: LanguageOption[] = [
   { code: 'es', name: 'Spanish', nativeName: 'Español', flag: 'ES' },
   { code: 'ko', name: 'Korean', nativeName: '한국어', flag: 'KO' },
   { code: 'fr', name: 'French', nativeName: 'Français', flag: 'FR' },
+  { code: 'de', name: 'German', nativeName: 'Deutsch', flag: 'DE' },
 ];
 
 export interface LocalizedProject {
@@ -179,7 +180,7 @@ export const DICTIONARY: Record<Language, Translations> = {
       title: 'Selected Work',
       subtitle:
         'Live client builds, memecoin portals, and production Web3 applications designed and developed by Senku.',
-      deployments: '3 Production Deployments',
+      deployments: '4 Production Deployments',
       caseStudy: 'Case Study',
       launchLive: 'Launch Live Site',
       needLaunch: 'Have a token, protocol, or dApp to build?',
@@ -347,6 +348,20 @@ export const DICTIONARY: Record<Language, Translations> = {
           'Fast lightweight asset delivery and mobile responsiveness',
         ],
       },
+      'rocket-flow': {
+        title: 'Rocket Flow ($FLOW)',
+        category: 'Solana Memecoin & Launchpad',
+        description:
+          'We Were Never Built To Stay Grounded. High-velocity community memecoin on Solana powered by internet culture, interactive rocket countdown launchpad, and neo-brutalist aesthetics.',
+        detailedDescription:
+          'An electrifying high-velocity Solana memecoin portal and launch pad engineered with neo-brutalist styling, interactive blast-off countdown animation, verified tokenomics, direct Telegram alpha community routing, and rapid DEX swap accessibility. Built to showcase raw kinetic energy, bold typography, and seamless viral community onboarding.',
+        features: [
+          'Interactive rocket liftoff sequence with custom sound FX and blast-off states',
+          'Neo-brutalist high-contrast typography & jet-black/acid-emerald visual palette',
+          'Pre-launch and live liquidity routing with exclusive Telegram community alerts',
+          'Mobile-first responsive architecture deployed on Netlify Edge with instant loading',
+        ],
+      },
     },
   },
   ja: {
@@ -380,7 +395,7 @@ export const DICTIONARY: Record<Language, Translations> = {
       title: '制作実績',
       subtitle:
         '本番稼働中のクライアント案件、ミームコインポータル、高パフォーマンスなWeb3フロントエンド。',
-      deployments: '3件の本番デプロイ実績',
+      deployments: '4件の本番デプロイ実績',
       caseStudy: '詳細を見る',
       launchLive: '本番サイトを開く',
       needLaunch: 'トークンやdAppのWebサイトが必要ですか？',
@@ -548,6 +563,20 @@ export const DICTIONARY: Record<Language, Translations> = {
           'モバイルでも軽快に動作する超軽量アセット配信',
         ],
       },
+      'rocket-flow': {
+        title: 'Rocket Flow ($FLOW)',
+        category: 'Solana ミームコイン & ローンチパッド',
+        description:
+          '大地に留まるために作られたのではない。インターネットカルチャーとコミュニティに牽引された、Solana上のネオ・ブルータリズム型ミームコインポータル。',
+        detailedDescription:
+          'Solana上の高エネルギーなコミュニティトークンポータル。インタラクティブなロケット打ち上げカウントダウン、検証済みトークノミクス、Telegramコミュニティ連携、高速DEXスワップへの導線を兼ね備えた設計。',
+        features: [
+          '効果音と連動したインタラクティブなロケット発射シーケンス',
+          'ネオ・ブルータリズム調の高コントラストなエメラルド＆ブラックUI',
+          '公式Telegramコミュニティとのシームレスな連動設計',
+          'Netlify Edge上で瞬時に表示される超高速レスポンシブフロントエンド',
+        ],
+      },
     },
   },
   zh: {
@@ -581,7 +610,7 @@ export const DICTIONARY: Record<Language, Translations> = {
       title: '制作案例',
       subtitle:
         '由 Senku 设计与开发的线上生产级客户项目、Meme代币发射门户与高性能Web3前端应用。',
-      deployments: '3 个正式部署案例',
+      deployments: '4 个正式部署案例',
       caseStudy: '查看详情',
       launchLive: '访问线上网站',
       needLaunch: '需要定制专属代币或 dApp 网站？',
@@ -749,6 +778,20 @@ export const DICTIONARY: Record<Language, Translations> = {
           '极速轻量化资源加载与全屏响应式设计',
         ],
       },
+      'rocket-flow': {
+        title: 'Rocket Flow ($FLOW)',
+        category: 'Solana Meme 币与发射台',
+        description:
+          '专为拒绝平庸而生。由网络文化与狂热社区驱动，集互动火箭发射倒计时与新野兽派美学于一身的 Solana Meme 门户。',
+        detailedDescription:
+          '充满极速活力的 Solana Meme 币互动门户。采用新野兽派高对比度视觉风格，搭载交互式火箭发射点火动画、透明代币经济学模型、官方 Telegram 专属社群路由与极速 DEX 交易直达。',
+        features: [
+          '带有音效与点火状态反馈的交互式火箭发射倒计时',
+          '新野兽派黑绿高反差视觉风格与粗粝排版',
+          '官方 Telegram 深度直达与专属社群警报',
+          '基于 Netlify Edge 边缘加速部署的毫秒级响应式架构',
+        ],
+      },
     },
   },
   es: {
@@ -782,7 +825,7 @@ export const DICTIONARY: Record<Language, Translations> = {
       title: 'Proyectos Seleccionados',
       subtitle:
         'Sitios en producción para clientes, portales de memecoins y aplicaciones Web3 diseñadas por Senku.',
-      deployments: '3 Proyectos en Producción',
+      deployments: '4 Proyectos en Producción',
       caseStudy: 'Ver Estudio',
       launchLive: 'Abrir Sitio Web',
       needLaunch: '¿Tienes un token, protocolo o dApp por construir?',
@@ -950,6 +993,20 @@ export const DICTIONARY: Record<Language, Translations> = {
           'Entrega ultrarrápida de recursos y diseño responsive total',
         ],
       },
+      'rocket-flow': {
+        title: 'Rocket Flow ($FLOW)',
+        category: 'Solana Memecoin y Launchpad',
+        description:
+          'Nunca fuimos hechos para quedarnos en el suelo. Memecoin de alta velocidad en Solana con estética neobrutalista y secuencia de despegue interactiva.',
+        detailedDescription:
+          'Portal y plataforma de lanzamiento en Solana diseñada con estética neobrutalista, animación interactiva de cuenta regresiva de despegue, tokenomics transparentes, integración de Telegram y acceso rápido a DEX.',
+        features: [
+          'Secuencia interactiva de despegue de cohete con efectos sonoros',
+          'Tipografía neobrutalista de alto contraste y paleta esmeralda / negro',
+          'Enrutamiento directo a la comunidad de Telegram y liquidez oficial',
+          'Arquitectura móvil optimizada alojada en Netlify Edge con carga instantánea',
+        ],
+      },
     },
   },
   ko: {
@@ -983,7 +1040,7 @@ export const DICTIONARY: Record<Language, Translations> = {
       title: '제작 포트폴리오',
       subtitle:
         'Senku가 직접 디자인 및 개발한 실서비스 배포 프로젝트, 밈코인 포털 및 Web3 프론트엔드입니다.',
-      deployments: '3개 상용 서비스 배포',
+      deployments: '4개 상용 서비스 배포',
       caseStudy: '상세 분석 보기',
       launchLive: '라이브 사이트 방문',
       needLaunch: '새로운 토큰이나 dApp 웹사이트가 필요하신가요?',
@@ -1151,6 +1208,20 @@ export const DICTIONARY: Record<Language, Translations> = {
           '가볍고 빠른 에셋 전송 및 모바일 완벽 대응',
         ],
       },
+      'rocket-flow': {
+        title: 'Rocket Flow ($FLOW)',
+        category: 'Solana 밈코인 & 런치패드',
+        description:
+          '지상에 머물기 위해 태어나지 않았다. 인터넷 문화와 강력한 커뮤니티가 이끄는 Solana 기반 네오 브루탈리즘 밈코인 포털.',
+        detailedDescription:
+          '짜릿한 속도감의 Solana 밈코인 런치 포털. 인터랙티브 로켓 카운트다운 애니메이션, 투명한 토크노믹스, 텔레그램 알파 채널 연동, 초고속 DEX 스왑 링크를 모두 갖춘 고성능 웹사이트.',
+        features: [
+          '효과음과 점화 상태가 반응하는 인터랙티브 로켓 발사 시퀀스',
+          '네오 브루탈리즘 고대비 에메랄드 & 제트 블랙 비주얼 디자인',
+          '공식 텔레그램 커뮤니티 다이렉트 유입 구조',
+          'Netlify Edge 기반 서브세컨드 로딩의 모바일 반응형 구현',
+        ],
+      },
     },
   },
   fr: {
@@ -1184,7 +1255,7 @@ export const DICTIONARY: Record<Language, Translations> = {
       title: 'Projets Sélectionnés',
       subtitle:
         'Réalisations clients en production, portails memecoins et interfaces Web3 performantes créées par Senku.',
-      deployments: '3 Déploiements en Production',
+      deployments: '4 Déploiements en Production',
       caseStudy: 'Étude de Cas',
       launchLive: 'Ouvrir le Site',
       needLaunch: 'Vous avez un token, protocole ou une dApp à construire ?',
@@ -1352,6 +1423,235 @@ export const DICTIONARY: Record<Language, Translations> = {
           'Chargement ultra-rapide des assets et réactivité mobile totale',
         ],
       },
+      'rocket-flow': {
+        title: 'Rocket Flow ($FLOW)',
+        category: 'Memecoin Solana & Launchpad',
+        description:
+          'Nous ne sommes pas nés pour rester au sol. Memecoin ultra-rapide sur Solana propulsé par la culture web, un compte à rebours interactif et un design néo-brutaliste.',
+        detailedDescription:
+          'Portail memecoin et plateforme de lancement dynamique sur Solana, conçu avec un style néo-brutaliste, une séquence interactive de décollage de fusée, des tokenomics audités, et un accès rapide à Telegram et aux DEX.',
+        features: [
+          'Séquence interactive de décollage de fusée avec effets sonores',
+          'Typographie néo-brutaliste contrastée et palette noir & émeraude',
+          'Routage vers la communauté Telegram officielle et les pools DEX',
+          'Architecture mobile ultra-réactive déployée sur Netlify Edge',
+        ],
+      },
+    },
+  },
+  de: {
+    nav: {
+      home: 'Startseite',
+      work: 'Projekte',
+      about: 'Über mich',
+      skills: 'Fähigkeiten',
+      contact: 'Kontakt',
+      available: 'Verfügbar für Projekte',
+      search: 'Suchen ⌘K',
+      theme: 'Design',
+    },
+    hero: {
+      badge: 'UNABHÄNGIGER WEB3-ENTWICKLER',
+      headline1: 'WEBSITES',
+      headline2: 'FÜR KRYPTO-',
+      headline3: 'PROJEKTE, DIE',
+      headlineHighlight: 'AUFFALLEN.',
+      subheadline:
+        'Ich konzipiere und entwickle moderne Websites für Kryptoprojekte, Memecoins, Web3-Startups und Gründer.',
+      viewWork: 'PROJEKTE ANSEHEN',
+      letsTalk: 'KONTAKT AUFNEHMEN',
+      tagFrontend: 'Frontend',
+      tagWeb3: 'Web3',
+      tagCreative: 'Kreative Entwicklung',
+      tagChains: 'Solana & EVM',
+    },
+    work: {
+      badge: 'Ausgewählte Arbeiten',
+      title: 'Ausgewählte Arbeiten',
+      subtitle:
+        'Live-Kundenprojekte, Memecoin-Portale und produktive Web3-Anwendungen, konzipiert und entwickelt von Senku.',
+      deployments: '4 Produktive Deployments',
+      caseStudy: 'Fallstudie',
+      launchLive: 'Live-Site öffnen',
+      needLaunch: 'Haben Sie einen Token, ein Protokoll oder eine dApp zu erstellen?',
+      needLaunchSub:
+        'Von viralen Memecoin-Launch-Portalen bis hin zu dezentralen Dashboards mit Live-Swaps und maßgeschneiderter Frontend-Architektur.',
+      startBrief: 'Projekt-Briefing starten',
+      exploreServices: 'Services entdecken',
+      viewAll: 'Alle Projekte anzeigen',
+    },
+    about: {
+      badge: 'Entwicklerprofil',
+      title: 'Entwicklung für die nächste Welle des Web3.',
+      role: 'Frontend & Web3',
+      status: 'Jetzt verfügbar',
+      speed: '24–48h Launch',
+      motion: 'Maßgeschneidertes UX',
+      principles: 'Entwicklungsprinzipien',
+      philosophies: 'Philosophien',
+      bioParagraphs: [
+        'Ich bin Senku, ein unabhängiger Entwickler, der Krypto-Projektideen in anspruchsvolle, reaktionsschnelle Websites verwandelt. Ich bin überzeugt, dass dezentrale Technologien außergewöhnliche Frontend-Handwerkskunst verdienen.',
+        'Kein Konzern-Geschwätz oder undurchsichtige Prozesse – nur direkte, transparente Zusammenarbeit, um Ihren Memecoin, Ihr Protokoll oder Ihr Startup schnell und mit höchster ästhetischer Präzision online zu bringen.',
+      ],
+      principlesList: [
+        {
+          title: 'Pixelgenaue Präzision',
+          description:
+            'Jedes Layout, jede Schriftgröße, jeder Rahmen und Leerraum ist auf visuelle Balance und Wirkung abgestimmt.',
+        },
+        {
+          title: 'Krypto-Native UX',
+          description:
+            'Intuitive Tokenomics-Diagramme, Live-Contract-Anzeige, Swap-Widget-Integration und nahtlose Wallet-Reaktivität.',
+        },
+        {
+          title: 'Performance & Geschwindigkeit',
+          description:
+            'Ladezeiten unter einer Sekunde, minimale Bundle-Größen und absolut flüssige Reaktionszeiten.',
+        },
+      ],
+    },
+    skills: {
+      badge: 'Fähigkeiten & Kompetenzen',
+      title: 'Fähigkeiten & Kompetenzen',
+      subtitle:
+        'Komplettes technisches Spektrum von kreativen Web3-Frontends und DEX-Integrationen bis hin zu Solidity-Smart-Contract-Anbindungen.',
+      servicesTitle: 'Was ich entwickle',
+      techTitle: 'Technologie-Stack',
+      ecosystemTitle: 'Web3-Ökosystem & Integrations-Know-how',
+      hireCta: 'Projekt beauftragen',
+      servicesList: [
+        {
+          id: 's1',
+          title: 'Memecoin- & Token-Launch-Websites',
+          description:
+            'Hochkonvertierende virale Landing Pages mit Tokenomics, Roadmap, Kaufportalen und Live-Contract-Adressen.',
+        },
+        {
+          id: 's2',
+          title: 'Web3-Frontends & dApp-Benutzeroberflächen',
+          description:
+            'Wallet-Verbindung, DEX-Swaps (Uniswap, Raydium), Staking-Dashboards und Blockchain-Interaktionen.',
+        },
+        {
+          id: 's3',
+          title: 'Individuelles Branding & Responsive Design',
+          description:
+            'Moderne visuelle Richtung, brutalistisch/cyber-ästhetisch und mobile-first Architektur.',
+        },
+        {
+          id: 's4',
+          title: 'Performance- & Geschwindigkeits-Optimierung',
+          description:
+            'Extrem schlanke Bundles, sofortiges Rendering, Lighthouse 95+ Werte und barrierefreie UI.',
+        },
+      ],
+    },
+    estimator: {
+      badge: 'Kosten- & Laufzeit-Rechner',
+      title: 'Kalkulieren Sie Ihr Web3-Projekt',
+      pricingNote: 'Faire Einstiegspreise',
+      step1: '1. Paket wählen:',
+      step2: '2. Optionen anpassen:',
+      timeLabel: 'Geschätzte Investition · Lieferzeit:',
+      bookTg: 'Über Telegram buchen',
+      copyBrief: 'Briefing kopieren',
+      copied: '✓ Briefing kopiert!',
+    },
+    contact: {
+      badge: 'Direkte Anfrage',
+      title: 'Projekt starten',
+      subtitle:
+        'Haben Sie einen Memecoin, ein Protokoll oder ein Startup im Blick? Kontaktieren Sie mich direkt auf Telegram, X oder per E-Mail.',
+      directTitle: 'Direkte Kanäle',
+      formTitle: 'Schnell-Briefing-Formular',
+      nameLabel: 'Ihr Name oder Alias',
+      contactLabel: 'Telegram-Handle oder E-Mail',
+      typeLabel: 'Projekttyp',
+      messageLabel: 'Projektumfang & Zeitplan (Optional)',
+      submitMail: 'E-Mail-Entwurf erstellen',
+      submitTg: 'Direkt über Telegram senden',
+      successTitle: 'Briefing erstellt!',
+      successDesc: 'Ihre Messenger-App wird geöffnet, um die Details zu besprechen.',
+      backHome: 'Zurück zur Startseite',
+    },
+    footer: {
+      tagline: 'Websites für Kryptoprojekte, die auffallen wollen.',
+      quickLinks: 'Navigation',
+      socials: 'Direkte Kanäle',
+      legal: 'Dezentrale Frontends',
+      rights: 'Senku. Alle Rechte vorbehalten.',
+    },
+    cmd: {
+      searchPlaceholder: 'Seiten, Projekte, Befehle durchsuchen...',
+      categoryNav: 'Navigation',
+      categoryProjects: 'Projekte & Fallstudien',
+      categoryActions: 'Interaktive Aktionen',
+      switchLang: 'Sprache wechseln (Change Language)',
+      switchLangSub: 'Interface-Sprache umstellen',
+      toggleTheme: 'Design wechseln',
+      toggleThemeSub: 'Zwischen Dunkel- und Hellmodus wechseln',
+      toggleSound: 'Soundeffekte Ein/Aus',
+      toggleSoundSub: 'Klicks und haptische Töne aktivieren/deaktivieren',
+      close: 'ESC zum Schließen',
+    },
+    projects: {
+      'grim-memecoin': {
+        title: 'GRIM ($GRIM)',
+        category: 'Web3-Terminal & Memecoin-Portal',
+        description:
+          'Das radikalste Finanzexperiment des Internets. Mehrseitiges Web3-Terminal und Meme-Labor mit Live-Liquiditätsdaten.',
+        detailedDescription:
+          'Ein vollwertiges Terminal und Markenportal für das $GRIM-Memecoin-Ökosystem. Live-Transaktions-Feed, interaktives Meme-Labor und nahtlose DEX-Anbindung.',
+        features: [
+          'Echtzeit-DEX-Transaktionsfeed und Live-Preisüberwachung',
+          'Interaktives Meme-Labor zur Community-Kulturbildung',
+          'Cyber-Dark Ästhetik mit animierten SVG-Vektoren',
+          'Nahtlose Multi-Tab-Navigation für Tokenomics, Memes & Swap',
+        ],
+      },
+      'pepeak-solana': {
+        title: 'PEPEAK ($PEPEAK)',
+        category: 'Kulturelles Launchpad auf Solana',
+        description:
+          'Hochenergetisches Solana-Launchpad mit Live-Charts, Schnellkopie der Contract-Adresse und kontrastreichem Streetwear-Design.',
+        detailedDescription:
+          'Solana-Launchpad für maximale Viralität und Konversion. Ein-Klick-Vertragsüberprüfung, mobile-optimierte Typografie und direkte Raydium-Verknüpfung.',
+        features: [
+          'Ein-Klick-Kopieren der Contract-Adresse mit Bestätigung',
+          'Streetwear-inspirierte, kontrastreiche Typografie und Neon-Akzente',
+          'Eingebettete Live-Preis-Charts und Raydium-Swap-Routen',
+          'Optimiert für mobilen Traffic von X und Telegram',
+        ],
+      },
+      'ronnie-coin': {
+        title: 'RONNIE ($RONNIE)',
+        category: 'Narrative Memecoin-Marke',
+        description:
+          'Verspielte Krypto-Marke mit interaktiver Mediengalerie, Live-Community-Ticker und flüssigen Mikro-Interaktionen.',
+        detailedDescription:
+          'Interaktives Markenportal für die $RONNIE-Community. Maßgeschneiderte Illustrationsgalerie, Token-Verteilungsdiagramm und Liquiditäts-Links.',
+        features: [
+          'Interaktive Illustrations- und Story-Galerie',
+          'Anschauliche visuelle Tokenomics-Diagramme',
+          'Community-gesteuerte Roadmap und Meilenstein-Tracker',
+          'Blitzschnelle Ladezeiten und vollständige mobile Responsivität',
+        ],
+      },
+      'rocket-flow': {
+        title: 'Rocket Flow ($FLOW)',
+        category: 'Solana Memecoin & Launchpad',
+        description:
+          'Niemals dafür gemacht, am Boden zu bleiben. High-Velocity-Memecoin auf Solana mit interaktiver Raketenstart-Sequenz und Neo-Brutalismus-Design.',
+        detailedDescription:
+          'Elektrisierendes Solana-Memecoin-Portal mit markantem Neo-Brutalismus-Stil, interaktivem Raketen-Countdown, transparenten Tokenomics, Telegram-Alpha-Anbindung und direktem DEX-Zugang.',
+        features: [
+          'Interaktive Raketenstart-Sequenz mit Soundeffekten und Launch-States',
+          'Kontrastreiche Neo-Brutalismus-Typografie in Smaragdgrün und Tiefschwarz',
+          'Direkte Anbindung an die offizielle Telegram-Community',
+          'Mobile-First-Architektur auf Netlify Edge mit extrem schnellen Ladezeiten',
+        ],
+      },
     },
   },
 };
@@ -1378,6 +1678,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       if (navLang.startsWith('es')) return 'es';
       if (navLang.startsWith('ko')) return 'ko';
       if (navLang.startsWith('fr')) return 'fr';
+      if (navLang.startsWith('de')) return 'de';
     }
     return 'en';
   });
@@ -1394,7 +1695,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const toggleLanguage = () => {
-    const list: Language[] = ['en', 'ja', 'zh', 'es', 'ko', 'fr'];
+    const list: Language[] = ['en', 'ja', 'zh', 'es', 'ko', 'fr', 'de'];
     setLanguageState((prev) => {
       const idx = list.indexOf(prev);
       return list[(idx + 1) % list.length];

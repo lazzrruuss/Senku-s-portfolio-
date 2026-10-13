@@ -16,7 +16,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({ onOpenProject }) => {
   const { t } = useLanguage();
 
   return (
-    <div className="relative w-full px-6 lg:px-12 py-16 sm:py-24 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200 min-h-[80vh] overflow-hidden">
+    <div className="relative w-full px-6 lg:px-12 py-16 sm:py-24 bg-transparent transition-colors duration-200 min-h-[80vh] overflow-hidden">
       {/* Background Cyber Motion Canvas */}
       <CyberMotionCanvas density="compact" interactive={true} />
 
@@ -58,7 +58,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({ onOpenProject }) => {
         </motion.div>
 
         {/* Projects Grid with 3D Tilt and Spotlight */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
           {PORTFOLIO_DATA.projects.map((project, index) => (
             <ProjectCard
               key={project.id}
@@ -75,7 +75,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({ onOpenProject }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative p-8 sm:p-12 rounded-xl bg-[#f4f4f0] dark:bg-[#111216] border border-[#747878]/15 dark:border-white/10 flex flex-col md:flex-row items-center justify-between gap-8 overflow-hidden group"
+          className="relative p-8 sm:p-12 rounded-2xl glass-panel-elevated flex flex-col md:flex-row items-center justify-between gap-8 overflow-hidden group shadow-xl"
         >
           {/* Subtle scanning glow line */}
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#22C55E] to-transparent opacity-40 group-hover:opacity-100 transition-opacity" />
@@ -95,14 +95,14 @@ export const WorkPage: React.FC<WorkPageProps> = ({ onOpenProject }) => {
           <div className="flex flex-wrap items-center gap-3">
             <MagneticButton
               onClick={() => navigateTo('contact')}
-              className="px-6 py-3.5 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium tracking-wide transition-all duration-200 rounded flex items-center gap-2 shadow-sm"
+              className="px-6 py-3.5 bg-[#000000] dark:bg-white text-white dark:text-black hover:bg-[#22C55E] dark:hover:bg-[#22C55E] dark:hover:text-black font-['Inter'] text-sm font-medium tracking-wide transition-all duration-200 rounded-lg flex items-center gap-2 shadow-sm"
             >
               <span>{t.work.startBrief}</span>
               <span className="material-symbols-outlined text-[16px]">arrow_outward</span>
             </MagneticButton>
             <MagneticButton
               onClick={() => navigateTo('skills')}
-              className="px-6 py-3.5 bg-transparent border border-[#747878]/30 dark:border-white/20 hover:border-[#1b1c1a] dark:hover:border-white text-[#1b1c1a] dark:text-white font-['Inter'] text-sm font-medium tracking-wide transition-all duration-200 rounded"
+              className="px-6 py-3.5 glass-btn text-[#1b1c1a] dark:text-white font-['Inter'] text-sm font-medium tracking-wide transition-all duration-200 rounded-lg"
             >
               <span>{t.work.exploreServices}</span>
             </MagneticButton>

@@ -8,6 +8,7 @@ import { Footer } from './components/Footer';
 import { ProjectModal } from './components/ProjectModal';
 import { CommandPalette } from './components/CommandPalette';
 import { BrandedPreloader } from './components/BrandedPreloader';
+import { FrostedAtmosphere } from './components/FrostedAtmosphere';
 import { HomePage } from './pages/HomePage';
 import { WorkPage } from './pages/WorkPage';
 import { AboutPage } from './pages/AboutPage';
@@ -61,7 +62,10 @@ function PortfolioApp() {
   };
 
   return (
-    <div className="min-h-screen bg-[#faf9f5] dark:bg-[#090a0c] font-['Inter'] text-[#1b1c1a] dark:text-[#ffffff] antialiased selection:bg-[#22C55E] selection:text-black flex flex-col transition-colors duration-200">
+    <div className="relative min-h-screen bg-[#faf9f5] dark:bg-[#090a0c] font-['Inter'] text-[#1b1c1a] dark:text-[#ffffff] antialiased selection:bg-[#22C55E] selection:text-black flex flex-col transition-colors duration-200">
+      {/* Dynamic Frosted Glass Ambient Lighting & Atmosphere */}
+      <FrostedAtmosphere />
+
       {/* Lightweight Branded Entry Preloader */}
       {!hasPreloaded && (
         <BrandedPreloader onComplete={() => setHasPreloaded(true)} />
@@ -71,7 +75,7 @@ function PortfolioApp() {
       <Navbar onOpenCommandPalette={() => setIsCommandPaletteOpen(true)} />
 
       {/* Main Content Area with buttery-smooth kinetic page transitions */}
-      <main className="w-full pt-20 bg-[#faf9f5] dark:bg-[#090a0c] flex-grow transition-colors duration-200 overflow-hidden">
+      <main className="relative z-10 w-full pt-20 bg-transparent flex-grow transition-colors duration-200 overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentPage}

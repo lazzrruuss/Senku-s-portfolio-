@@ -8,9 +8,10 @@ interface ProjectCardProps {
   project: Project;
   index: number;
   onOpenDetails: (project: Project) => void;
+  className?: string;
 }
 
-export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onOpenDetails }) => {
+export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onOpenDetails, className = '' }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const { t } = useLanguage();
@@ -71,30 +72,45 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onOpen
         rotateX,
         rotateY,
         transformStyle: 'preserve-3d',
+        willChange: 'transform',
       }}
       whileTap={{ scale: 0.985 }}
       onClick={() => {
         sound.playClick(900);
         onOpenDetails(project);
       }}
-      className="bg-[#faf9f5] dark:bg-[#16171c] p-8 flex flex-col justify-between shadow-xs hover:shadow-2xl transition-all duration-300 border border-[#747878]/15 dark:border-white/10 hover:border-[#1b1c1a]/40 dark:hover:border-[#22C55E]/60 group cursor-pointer relative overflow-hidden rounded-sm"
+      className={`glass-card p-8 flex flex-col justify-between shadow-xs hover:shadow-2xl transition-all duration-300 group cursor-pointer relative overflow-hidden rounded-xl ${className}`}
     >
       {/* Interactive Cursor Spotlight Illumination */}
       {isHovered && (
         <motion.div
           className="pointer-events-none absolute -inset-px transition-opacity duration-300 z-0"
           style={{
-            background: `radial-gradient(400px circle at ${mouseX.get()}px ${mouseY.get()}px, rgba(34, 197, 94, 0.12), transparent 80%)`,
+            background: `radial-gradient(400px circle at ${mouseX.get()}px ${mouseY.get()}px, rgba(34, 197, 94, 0.14), transparent 80%)`,
           }}
         />
       )}
+
+      {/* Internal Frosted Glass Sheen & Refraction Glint (Zero-lag radial gradients) */}
+      <div
+        className="absolute -top-20 -left-20 w-48 h-48 rounded-full pointer-events-none group-hover:scale-125 transition-transform duration-500 opacity-60 dark:opacity-40"
+        style={{
+          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, transparent 70%)',
+        }}
+      />
+      <div
+        className="absolute bottom-0 right-0 w-36 h-36 rounded-full pointer-events-none opacity-40 group-hover:opacity-75 transition-opacity duration-300"
+        style={{
+          background: 'radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 70%)',
+        }}
+      />
 
       {/* Subtle top edge scanning light bar on hover */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#22C55E] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
       <div className="relative z-10">
         <div className="flex items-center justify-between mb-6">
-          <span className="px-3 py-1 bg-[#efeeea] dark:bg-[#212328] font-['JetBrains_Mono'] text-xs text-[#444748] dark:text-[#d1d5db] uppercase tracking-wider transition-colors group-hover:border group-hover:border-[#22C55E]/30">
+          <span className="px-3 py-1 glass-pill font-['JetBrains_Mono'] text-xs text-[#444748] dark:text-[#d1d5db] uppercase tracking-wider transition-colors group-hover:border group-hover:border-[#22C55E]/40 rounded-md">
             {project.badge}
           </span>
           <span className="font-['JetBrains_Mono'] text-xs text-[#444748] dark:text-[#9ca3af] tracking-widest font-semibold group-hover:text-[#22C55E] transition-colors">
@@ -114,7 +130,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onOpen
           {project.tags.map((tag, idx) => (
             <span
               key={idx}
-              className="px-2.5 py-1 bg-[#f4f4f0] dark:bg-[#212328] font-['JetBrains_Mono'] text-xs text-[#444748] dark:text-[#d1d5db] group-hover:border-b group-hover:border-[#22C55E]/40 transition-all"
+              className="px-2.5 py-1 glass-pill rounded font-['JetBrains_Mono'] text-xs text-[#444748] dark:text-[#d1d5db] group-hover:border-b group-hover:border-[#22C55E]/40 transition-all"
             >
               {tag}
             </span>

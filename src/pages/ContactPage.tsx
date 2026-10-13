@@ -11,7 +11,7 @@ export const ContactPage: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <div className="relative w-full px-6 lg:px-12 py-16 sm:py-24 bg-[#faf9f5] dark:bg-[#090a0c] transition-colors duration-200 min-h-[80vh] overflow-hidden">
+    <div className="relative w-full px-6 lg:px-12 py-16 sm:py-24 bg-transparent transition-colors duration-200 min-h-[80vh] overflow-hidden">
       {/* Background Cyber Motion Canvas */}
       <CyberMotionCanvas density="compact" interactive={true} />
 

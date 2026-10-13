@@ -10,7 +10,7 @@ export const About: React.FC = () => {
   const principles = t.about.principlesList || PORTFOLIO_DATA.developer.codePrinciples;
 
   return (
-    <section className="w-full px-6 lg:px-12 py-24 bg-[#faf9f5] dark:bg-[#090a0c] border-b border-[#747878]/15 dark:border-white/10 transition-colors duration-200" id="about">
+    <section className="w-full px-6 lg:px-12 py-24 bg-transparent border-b border-[#747878]/15 dark:border-white/10 transition-colors duration-200" id="about">
       <div className="max-w-4xl mx-auto flex flex-col gap-8">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
@@ -50,7 +50,7 @@ export const About: React.FC = () => {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: idx * 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
               whileHover={{ y: -4 }}
-              className="p-6 bg-[#f4f4f0] dark:bg-[#16171c] border border-[#747878]/15 dark:border-white/10 rounded-sm hover:border-[#1b1c1a]/30 dark:hover:border-white/30 transition-colors"
+              className="p-6 glass-card rounded-xl transition-all duration-200"
             >
               <div className="font-['JetBrains_Mono'] text-xs text-[#006e2f] dark:text-[#4ade80] uppercase mb-2 font-medium">
                 0{idx + 1} // {t.about.principles}
